@@ -5,6 +5,8 @@ Below you will find some information on how to perform common tasks.<br>
 ## Table of Contents
 
 - [Stack](#stack)
+- [Build](#build)
+
 ## Stack
 
 * `Microservices`<br> References :
@@ -31,4 +33,12 @@ Below you will find some information on how to perform common tasks.<br>
 * `Server`:
 <br> Reactive Netty 
 
+
+## Build
+
+### How to build
+`./mvnw clean install`
+
+### How to run
+`./mvnw spring-boot:run`
 
