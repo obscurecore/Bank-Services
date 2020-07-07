@@ -14,20 +14,20 @@ Below you will find some information on how to perform common tasks.<br>
 * `Reactor`<br> References : 
 <br> [Reactive](https://spring.io/reactive) [ [1](http://reactivex.io/) ] - for low-latency, high-throughput workloads
 
-* `<Messaging>`<br> References : 
+* `Messaging`<br> References : 
 <br> [Chris Richardson](https://microservices.io/patterns/communication-style/messaging.html) - for communicate
 
-* `<Spring>`: 
+* `Spring`: 
 <br> AOP
 <br> MVC
 <br> Data
 <br> Security
 
-* `<Tools>`: 
+* `Tools`: 
 <br> Docker compose
 <br> Bash
 
-* `<Server>`:
+* `Server`:
 <br> Reactive Netty 
 
 
