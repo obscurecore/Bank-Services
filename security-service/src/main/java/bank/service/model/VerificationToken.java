@@ -1,7 +1,6 @@
 package bank.service.model;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,6 +12,7 @@ import java.util.Date;
 
 /**
  * The type Verification token.
+ *
  * @author Ruslan Potapov
  */
 @Data

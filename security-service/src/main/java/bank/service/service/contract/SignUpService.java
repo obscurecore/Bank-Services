@@ -6,6 +6,7 @@ import bank.service.dto.SignUpDto;
 
 /**
  * The interface Sign up service.
+ *
  * @author Ruslan Potapov
  */
 public interface SignUpService {

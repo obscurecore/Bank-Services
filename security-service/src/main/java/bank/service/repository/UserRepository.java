@@ -7,6 +7,7 @@ import java.util.Optional;
 
 /**
  * The interface User repository.
+ *
  * @author Ruslan Potapov
  */
 public interface UserRepository extends JpaRepository<User, Long> {

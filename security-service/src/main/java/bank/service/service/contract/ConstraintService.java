@@ -7,6 +7,7 @@ import java.util.Map;
 
 /**
  * The interface Constraint service.
+ *
  * @author Ruslan Potapov
  */
 public interface ConstraintService {

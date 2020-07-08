@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 /**
  * The DTO to send email: for confirmation account
+ *
  * @author Ruslan Potapov
  */
 @Data

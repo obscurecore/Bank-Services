@@ -8,6 +8,7 @@ import java.util.Set;
 
 /**
  * The DTO for captcha
+ *
  * @author Ruslan Potapov
  */
 @Data

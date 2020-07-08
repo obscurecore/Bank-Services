@@ -13,6 +13,7 @@ import java.lang.annotation.Target;
 /**
  * Custom annotation
  *
+ * @author Ruslan Potapov
  * @Constraint(…) —indicates what class is implementing the constraint for validation, more about it is covered in next part of the post,
  * @Retention(…) — in short, it indicates how long annotation will be making impact on our code (before or after compilation), in above case — RetentionPolicy.RUNTIME — it means that this annotation will be available after the runtime,
  * @Target(…) — indicates where this annotation can be applied, i.e. on a class, field, method.

@@ -42,5 +42,4 @@ public class EmailAspect {
         msg.setSubject(emailDto.getTemplateName());
         javaMailSender.send(msg);
     }
-
 }

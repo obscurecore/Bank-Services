@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 /**
  * The enum Role.
+ *
  * @author Ruslan Potapov
  */
 public enum Role implements GrantedAuthority, Serializable {

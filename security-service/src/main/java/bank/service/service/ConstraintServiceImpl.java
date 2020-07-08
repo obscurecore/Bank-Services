@@ -12,12 +12,13 @@ import java.util.stream.Collectors;
 
 /**
  * Service for errors processing
+ *
  * @author Ruslan Potapov
  */
 @Component
 public class ConstraintServiceImpl implements ConstraintService {
 
-    public Map<String, String> getMethodErrors( MethodArgumentNotValidException ex) {
+    public Map<String, String> getMethodErrors(MethodArgumentNotValidException ex) {
         return ex.getBindingResult().getAllErrors().stream().collect(
                 Collectors.toMap(DefaultMessageSourceResolvable::getCode, DefaultMessageSourceResolvable::getDefaultMessage));
     }

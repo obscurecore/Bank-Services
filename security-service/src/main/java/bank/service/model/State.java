@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 /**
  * The enum State.
+ *
  * @author Ruslan Potapov
  */
 public enum State implements Serializable {

@@ -14,13 +14,13 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-
 import java.util.Collections;
 import java.util.Random;
 import java.util.UUID;
 
 /**
  * Service for registration
+ *
  * @author Ruslan Potapov
  */
 @Component
