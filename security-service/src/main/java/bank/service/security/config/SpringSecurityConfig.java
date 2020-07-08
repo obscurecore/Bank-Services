@@ -59,8 +59,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/signIn")
-                .deleteCookies("remember-me")
-                .invalidateHttpSession(true);
+                .deleteCookies("remember-me");
     }
 
     @Autowired
