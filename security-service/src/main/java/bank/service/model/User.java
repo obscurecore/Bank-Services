@@ -9,6 +9,10 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
 
+/**
+ * The type User.
+ * @author Ruslan Potapov
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

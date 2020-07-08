@@ -11,6 +11,10 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
 
+/**
+ * The type Verification token.
+ * @author Ruslan Potapov
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
