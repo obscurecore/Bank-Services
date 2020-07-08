@@ -18,7 +18,7 @@ import javax.validation.constraints.Size;
  */
 @Data
 @Component
-@PasswordsEqualConstraint
+@PasswordsEqualConstraint // check if password and passwordRepeat is equal
 public class SignUpDto {
 
     @ReCaptcha
@@ -29,7 +29,7 @@ public class SignUpDto {
 
     @NotBlank(message = "{error.field.not_blank}")
     @Email(message = "{error.email.incorrect}")
-    @UniqueEmail
+    @UniqueEmail // check if field is unique in BD
     private String email;
 
     @NotBlank(message = "{error.field.not_blank}")
