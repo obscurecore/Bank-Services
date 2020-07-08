@@ -27,7 +27,7 @@ public class EmailAspect {
      * @param emailDto - dto
      * @author Ruslan Potapov
      */
-    @AfterReturning(value = "execution(*bank.service.service.contract.SignUpService.signUp(*))", returning = "emailDto")
+    @AfterReturning(value = "execution(* bank.service.service.contract.SignUpService.signUp(*))", returning = "emailDto")
     public void signUpAdvice(EmailDto emailDto) {
 
         var message = String.format(
