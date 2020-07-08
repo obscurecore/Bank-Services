@@ -9,15 +9,15 @@ Below you will find some information on how to perform common tasks.<br>
 - [Stack](#stack)
 - [Build](#build)
 
-
-
 ## Description
-
+Most Enterprise projects are just representations of big trash, which moreover is a monolith.
+And new way with microservices is salvation. <br>
+Fault-tolerant, resilient, highly loaded architecture? YUP! You are reading about this project
+### Architecture
 ![coverage report](src/main/resources/arch.jpg)
 
 
-
-#####manifest of a reactive system
+### Manifest of a reactive system
 ![coverage report](src/main/resources/manifest.jpg)
 ## Stack
 
