@@ -1,0 +1,30 @@
+# Spring
+spring:
+  # DataBase
+  datasource:
+    password: 1234
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+  jpa:
+    generate-ddl: true
+
+  # Mail
+  mail:
+    host: smtp.gmail.com
+    password: ''
+    port: 587
+    properties:
+      mail:
+        smtp:
+          auth: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
+    username: ''
+
+# Recaptcha
+recaptcha:
+  secret: 6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe
+  url: https://www.google.com/recaptcha/api/siteverify?secret=%s&response=%s"
+
+
