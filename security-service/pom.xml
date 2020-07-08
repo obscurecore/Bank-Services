@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>Bank-Service</groupId>
-    <artifactId>Auto-Store</artifactId>
+    <artifactId>security-service</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <parent>
