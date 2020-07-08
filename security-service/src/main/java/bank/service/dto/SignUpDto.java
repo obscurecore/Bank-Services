@@ -1,5 +1,9 @@
 package bank.service.dto;
 
+import bank.service.validator.contract.PasswordsEqualConstraint;
+import bank.service.validator.contract.ReCaptcha;
+import bank.service.validator.contract.UniqueEmail;
+import com.fasterxml.jackson.annotation.JsonAlias;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
@@ -14,18 +18,24 @@ import javax.validation.constraints.Size;
  */
 @Data
 @Component
+@PasswordsEqualConstraint
 public class SignUpDto {
+
+    @ReCaptcha
+    @JsonAlias("g-recaptcha-response")
+    String captchaResponse;
 
     private String username;
 
-    @NotBlank
-    @Email
+    @NotBlank(message = "{error.field.not_blank}")
+    @Email(message = "{error.email.incorrect}")
+    @UniqueEmail
     private String email;
 
-    @NotBlank
-    @Size
+    @NotBlank(message = "{error.field.not_blank}")
+    @Size(min = 5, message = "{error.password.size}")
     private String password;
 
-    @NotBlank
+    @NotBlank(message = "{error.field.not_blank}")
     private String passwordRepeat;
 }
