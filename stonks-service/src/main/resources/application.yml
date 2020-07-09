@@ -3,7 +3,7 @@ spring:
     name: stonks-service
   data:
     mongodb:
-      uri: mongodb://localhost:27017/stonkdb
+      uri: mongodb://localhost:27017/stonksdb
 server:
   port: 8081
 eureka:
