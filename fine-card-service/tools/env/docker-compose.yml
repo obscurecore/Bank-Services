@@ -1,0 +1,8 @@
+version: '2'
+services:
+  wiremock:
+    image: rodolpheche/wiremock
+    ports:
+      - "9999:8080"
+    volumes:
+      - ../mock:/home/wiremock
