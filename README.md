@@ -1,10 +1,13 @@
 # Bank-Services
 
+Microservice project with reactive approach for the banking application.
+
 Below you will find some information on how to perform common tasks.<br>
 
 ## Table of Contents
 - [Updating to New Releases](#updating-to-new-releases)
 - [Sending Feedback](#sending-feedback)
+- [Briefing](#briefing)
 - [Project Structure](#project-structure)
   - [Eureka Server](#eureka-server)
   - [Zuul Service](#zuul-service)
@@ -12,7 +15,7 @@ Below you will find some information on how to perform common tasks.<br>
   - [Stonks Service](#stonks-service)
   - [User service](#user-service)
   - [Fine Card Service](#fine-card-service)
-- [Supported Language Features and Polyfills](#supported-language-features-and-polyfills)
+- [Supported Language Features and Tools](#supported-language-features-and-tools)
 - [Integrating with an API Backend](#integrating-with-an-api-backend)
 - [Deployment](#deployment)
   - [AWS](#azure)
@@ -27,6 +30,9 @@ We commit to keeping the breaking changes minimal, so you can upgrade painlessly
 
 ## Sending Feedback
 We are always open to [your feedback](https://github.com/obscurecore/Bank-Services/issues).
+
+## Briefing
+
 
 ## Project Structure
 
@@ -85,16 +91,6 @@ Note that **the project only includes a few Java SE 11**:
 
 
 ## Integrating with an API Backend
-
-
-
-## Description
-Most Enterprise projects are just representations of big trash, which moreover is a monolith.
-And new way with microservices is salvation. <br>
-Fault-tolerant, resilient, highly loaded architecture? YUP! You are reading about this project
-
-
-
 
 ## Build
 
