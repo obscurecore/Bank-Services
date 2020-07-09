@@ -58,6 +58,21 @@ Bank-Services/
 ```
 You can delete or rename files.
 ### `Eureka Server`
+
+Eureka Server (the service registry) - application, that contain meta about all client service applications.
+<br> Each service `register` on Eureka and Eureka knows all services, running on each port and IP address.
+
+
+Service interacts with Server in this way:
+
+1. Client register information about running instance on Eureka. 
+2. Every 30 seconds Client send a request to the server to inform that it still alive, if server doesn't see update within 90 seconds, it just removes instance.
+3. Eureka Client get information from the server and store in itself as cache and update every 30 seconds. This meta automatically update.
+4. Getting the updates, Client verify information with the server, comparing count of instances and if it has error, the server will send again information.
+5. At the end of the running Client send cancellation request to the server. In this way instance will be deleted from registry.
+
+Client that was used 3 unsuccessful attempts with interval in 30 seconds will be deleted. 
+
 ### `Zuul Service`
 ### `Security Service`
 ### `Stonks Service`
