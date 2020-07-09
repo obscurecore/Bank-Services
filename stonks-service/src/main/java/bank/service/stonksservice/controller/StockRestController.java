@@ -1,7 +1,7 @@
 package bank.service.stonksservice.controller;
 
 
-import bank.service.stonksservice.exception.BucketNotFoundException;
+import bank.service.stonksservice.exception.StonkNotFoundException;
 import bank.service.stonksservice.model.Stonk;
 import bank.service.stonksservice.payload.ErrorResponse;
 import bank.service.stonksservice.repository.BucketRepository;
@@ -120,8 +120,8 @@ public class StockRestController {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorResponse("A Stonk with the same title already exists"));
     }
 
-    @ExceptionHandler(BucketNotFoundException.class)
-    public ResponseEntity handleBucketNotFoundException(BucketNotFoundException ex) {
+    @ExceptionHandler(StonkNotFoundException.class)
+    public ResponseEntity handleBucketNotFoundException(StonkNotFoundException ex) {
         return ResponseEntity.notFound().build();
     }
 
