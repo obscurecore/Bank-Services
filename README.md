@@ -71,11 +71,19 @@ Service interacts with Server in this way:
 4. Getting the updates, Client verify information with the server, comparing count of instances and if it has error, the server will send again information.
 5. At the end of the running Client send cancellation request to the server. In this way instance will be deleted from registry.
 
-Client that was used 3 unsuccessful attempts with interval in 30 seconds will be deleted. 
+Client that was used 3 unsuccessful attempts with interval in 30 seconds will be deleted.
 
+ 
+Interaction of servers with each other is the same as with Client and Server.
+If has problem it try to check all peer nodes or protect already available.
 ### `Zuul Service`
 ### `Security Service`
 ### `Stonks Service`
+
+Represent of a simple crud application with Mongo - DB, WebFlux - reactive, Lombok - convenience.
+
+
+
 ### `User Service`
 ### `Fine Card Service`
 
@@ -106,6 +114,94 @@ Note that **the project only includes a few Java SE 11**:
 
 
 ## Integrating with an API Backend
+
+### `Stonks Service`
+  To get all data from BD. 
+* **URL** &ensp; /getAll
+* **Method:** &ensp; `GET`
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** `[
+        {
+            id : 12,
+            title : "Java",
+            description : "OOP",
+            personalNumber : 200,
+            imageLink : "https://...."
+        },
+        {
+            id : 2,
+            title : "Java",
+            description : "Stream API",
+            personalNumber : 437,
+            imageLink : "https://...."        
+        }
+    ]`
+ 
+* **Sample Call:**
+
+  ```javascript
+  $.ajax({
+     url: "/getAll",
+     dataType: "json",
+     type : "GET",
+     success : function(r) {
+       console.log(r);
+     }
+  });
+  ```
+  ```http request
+  GET http://localhost:8081/getAll
+  Accept: application/json
+  ```
+---
+  create data in BD. 
+* **URL** &ensp; /create 
+* **Method:** &ensp; `POST`
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** empty
+    
+* **Error Response:**  
+   * **Code:** 400 BAD REQUEST <br />
+     **Content:** `{ title : "Max length is 10" }`
+* **Sample Call:**
+
+  ```javascript
+  $.ajax({
+     url: "/getAll",
+     contentType: "application/json",
+     type : "POST",
+     data : JSON.stringify({ "id": 123, "title": "Spring Data", "description": "Cassandra", "personalNumber": 1973, "imageLink": "https://..."}),
+     success : function() {
+       console.log("GJ");
+     }
+  });
+  ```
+  ```http request
+  POST http://localhost:8081/create
+  Content-Type: application/json
+  
+  {
+    "id": 123,
+    "title": "Spring Data",
+    "description": "Cassandra",
+    "personalNumber": 1973,
+    "imageLink": "https://..."
+  }
+  ```
+  
+
+
+
+
+
+
+
+
+
 
 ## Build
 
