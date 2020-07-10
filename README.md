@@ -121,7 +121,7 @@ Note that **the project only includes a few Java SE 11**:
 ## Integrating with an API Backend
 
 ### `Stonks Service`
-#####  SS, Get all data from BD. 
+####  &ensp;SS, Get all data from BD. 
 * **URL:**&ensp;/getAll
 * **Method:**&ensp;`GET`
 * **Required:**&ensp;None
@@ -169,7 +169,8 @@ Note that **the project only includes a few Java SE 11**:
 * **Notes:**&ensp;hasRole ("GUEST","USER","ADMIN")
 
 ---
-#####  SS, Insert data into BD. 
+####  &ensp;S, Insert data into BD.
+
 * **URL:**&ensp;/create 
 * **Method:**&ensp;`POST`
 * **Required:**&ensp;`title=[String, NotNull, Length<10]`
