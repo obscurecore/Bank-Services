@@ -269,11 +269,11 @@ Note that **the project only includes a few Java SE 11**:
 
 
 
-##Papers
+## Papers
 
 
 
-###Eureka Server
+### Eureka Server
 
 *Eureka Server:* It contains a registry of services, and a REST API that can be used to register a service, unregister a service, and determine the location of other services.<br>
 
@@ -283,14 +283,14 @@ Note that **the project only includes a few Java SE 11**:
 
 *Eureka Client:* Any application that can detect services. It only requests the service registry from Eureka Server to identify running instances of microservices.<br>
 
-####How it works
+#### How it works
 By default, the Eureka client starts in the `STARTING` state, which allows the instance to perform initialization for a specific application before it can serve traffic.<br>
 
 #### TIme Lag
 All operations with Eureka Client may take some time to be reflected on Eureka Server, and then on other Eureka clients.
 This is due to caching of useful data on the server, which is periodically updated to display new information.
 
-####Status check
+#### Status check
 After successful registration, Eureka always declares that the app is in the "UP" state.
 Change this behavior by enabling Eureka health checks.
   ```
@@ -299,8 +299,8 @@ Change this behavior by enabling Eureka health checks.
   healthcheck:
   enabled: true
   ```
-###MongoDB
+### MongoDB
 
-###Reactive
+### Reactive
 
-###Feign Client
+### Feign Client
