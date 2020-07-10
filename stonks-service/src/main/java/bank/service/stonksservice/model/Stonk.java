@@ -22,8 +22,8 @@ public class Stonk {
     @Id
     private Long id;
 
-    @NotBlank
-    @Size(max = 10)
+    @NotBlank (message = "not blank")
+    @Size(max = 10, message = "max size is 10")
     private String title;
     private String description;
     private int personalNumber;
