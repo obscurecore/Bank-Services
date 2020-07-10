@@ -122,12 +122,16 @@ Note that **the project only includes a few Java SE 11**:
 
 ### `Stonks Service`
 #####  SS, Get all data from BD. 
-* **URL** &ensp; /getAll
-* **Method:** &ensp; `GET`
+* **URL:**&ensp;/getAll
+* **Method:**&ensp;`GET`
+* **Required:**&ensp;None
+ 
 * **Success Response:**
 
   * **Code:** 200 <br />
-    **Content:** `[
+    **Content:** 
+   ```
+     [
         {
             id : 12,
             title : "Java",
@@ -135,6 +139,7 @@ Note that **the project only includes a few Java SE 11**:
             personalNumber : 200,
             imageLink : "https://...."
         },
+  
         {
             id : 2,
             title : "Java",
@@ -142,7 +147,8 @@ Note that **the project only includes a few Java SE 11**:
             personalNumber : 437,
             imageLink : "https://...."        
         }
-    ]`
+    ]
+  ```
  
 * **Sample Call:**
 
@@ -160,18 +166,34 @@ Note that **the project only includes a few Java SE 11**:
   GET http://localhost:8081/getAll
   Accept: application/json
   ```
+* **Notes:**&ensp;hasRole ("GUEST","USER","ADMIN")
+
 ---
 #####  SS, Insert data into BD. 
-* **URL** &ensp; /create 
-* **Method:** &ensp; `POST`
+* **URL:**&ensp;/create 
+* **Method:**&ensp;`POST`
+* **Required:**&ensp;`title=[String, NotNull, Length<10]`
+* **Optional:**&ensp;`id=[Long]`
+* **Data Params:**
+  ```
+    {
+     "title": "Spring",
+     "description": "Cassandra",
+     "personalNumber": 1973,
+     "imageLink": "https://..."
+    }
+  ```
 * **Success Response:**
 
   * **Code:** 200 <br />
-    **Content:** empty
+    **Content:** None
     
 * **Error Response:**  
    * **Code:** 400 BAD REQUEST <br />
      **Content:** `{ title : "Max length is 10" }`
+     
+   * **Code:** 401 UNAUTHORIZED <br />
+     **Content:** `{ error : "Log in" }`
 * **Sample Call:**
 
   ```javascript
@@ -179,7 +201,7 @@ Note that **the project only includes a few Java SE 11**:
      url: "/getAll",
      contentType: "application/json",
      type : "POST",
-     data : JSON.stringify({ "id": 123, "title": "Spring Data", "description": "Cassandra", "personalNumber": 1973, "imageLink": "https://..."}),
+     data : JSON.stringify({ "id": 123, "title": "Spring", "description": "Cassandra", "personalNumber": 1973, "imageLink": "https://..."}),
      success : function() {
        console.log("GJ");
      }
@@ -197,6 +219,11 @@ Note that **the project only includes a few Java SE 11**:
     "imageLink": "https://..."
   }
   ```
+  
+* **Notes:**&ensp;hasRole ("USER","ADMIN")
+
+    
+
 ## Deployment
 
 ###AWS  
