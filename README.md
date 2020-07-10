@@ -45,6 +45,39 @@ We are always open to [your feedback](https://github.com/obscurecore/Bank-Servic
 
 ## Briefing
 
+###`Plan:`
+
+* Configure Eureka Server, Eureka Client (User-Service, Stonks-Service).
+* Use the MongoDB database for all this, and write reactive services on Spring 5. 
+* Make friends with the services and make them communicate via RestTemplate, Feign Client, WebClient for the statistic.
+
+---
+* Add the Zuul API Gateway, a Ribbon load balancer.
+* Have a Space-service with a spare replica.
+* Configure Load Balancer, Configure Config Server And Config Client.
+* Add Token Security.
+---
+* Configure Docker Swarm 
+---
+
+* Make several replicas for Eureka Server and other services and make them work together.
+* Add a ELK (Elastic Search Kibana) to view logs.
+---
+
+* Add Spring Cloud sleutch and Spring Cloud Stream together with Kafka and RabbitMQ.
+* Get acquainted with the websocket and Rsocket protocols and build a connection between services.
+---
+
+* Use Saga Pattern
+* Explore Axon
+
+
+![schema_ractor](https://i.ibb.co/MNYvmww/arch.png)
+
+
+
+
+
 
 ## Project Structure
 
