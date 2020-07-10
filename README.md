@@ -28,9 +28,10 @@ Below you will find some information on how to perform common tasks.<br>
     - [Additional Instructions](#additional-instructions)
 - [Papers](#papers)
     - [Eureka Server](#eureka-server)
-    - [Reactive](#reactive)
+    - [Reactive Programming](#reactive-programming)
     - [MongoDB](#mongodb)
     - [Feign Client](#feign-client)
+    - [RSocket](#rsoket)
 
 
 ## Updating to New Releases
@@ -49,7 +50,7 @@ We are always open to [your feedback](https://github.com/obscurecore/Bank-Servic
 
 After creation, your project should look like this:
 
-```
+```text
 Bank-Services/
   README.md
   CHANGELOG.md
@@ -145,7 +146,7 @@ Note that **the project only includes a few Java SE 11**:
 
   * **Code:** 200 <br />
     **Content:** 
-   ```
+   ```javascript
      [
         {
             id : 12,
@@ -293,14 +294,56 @@ This is due to caching of useful data on the server, which is periodically updat
 #### Status check
 After successful registration, Eureka always declares that the app is in the "UP" state.
 Change this behavior by enabling Eureka health checks.
-  ```
+  ```yaml
   eureka:
   client:
   healthcheck:
   enabled: true
   ```
+### Reactive Programming
+Project Reactor is a Java 8 library that implements the reactive programming model.
+It is based on the reactive stream specification.
+
+**!!!Reactive types are not intended to process queries or data faster!!!**
+
+Their special feature is their ability to concurrently process more requests and handle delayed operations more efficiently, such as requesting data from a remote server.<br>
+#### Reactive Streams 
+Reactive streams сonsist of 4-Java interfaces `publisher, subscriber, subscription and processor`.
+```java
+ public static interface Publisher<T> {
+     public void subscribe(Subscriber<? super T> subscriber);
+ } public static interface Subscriber<T> {
+     public void onSubscribe(Subscription subscription);
+     public void onNext(T item);
+     public void onError(Throwable throwable);
+     public void onComplete();
+ }
+        
+ public static interface Subscription {
+     public void request(long n);
+     public void cancel();
+ }
+        
+ public static interface Processor<T,R> extends Subscriber<T>,  
+   Publisher<R> {
+ }
+```
+They all have the following requirements:
+
+* ASYNC — asynchrony
+* NIO - "non-blocking” i / o
+* RESPECT BACKPRESSURE - ability to handle cases when data appears faster than it is consumed (this situation does not occur in synchronous, imperative code, but it is common in reactive systems).
+A mechanism that allows the recipient to ask how much data they want to get.
+In other words, the recipient starts receiving data only when it is ready to process it.
+---
+* Observer ![schema_ractor](https://i2.wp.com/springgears.com/wp-content/uploads/2018/11/Blank-Diagram.png?resize=768%2C387&ssl=1?style=centerme)
+* Flux ![schema_flux](https://i1.wp.com/springgears.com/wp-content/uploads/2018/12/flux.png?w=640&ssl=1?style=centerme)
+* Mono ![schema_flux](https://i2.wp.com/springgears.com/wp-content/uploads/2018/12/mono.png?w=640&ssl=1)
+
 ### MongoDB
 
-### Reactive
 
 ### Feign Client
+
+
+### RSocket
