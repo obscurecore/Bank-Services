@@ -1,0 +1,18 @@
+
+###
+POST http://localhost:8081/create
+Content-Type: application/json
+
+{
+  "id": 7898,
+  "title": "789777777777777777J7",
+  "description": "OOP79879",
+  "personalNumber": 28078979,
+  "imageLink": "http://infopulse-univer.com.ua/images/trenings/java.png"
+}
+
+###
+GET http://localhost:8081/getAll
+Accept: application/json
+
+###
