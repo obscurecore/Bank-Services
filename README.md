@@ -21,11 +21,17 @@ Below you will find some information on how to perform common tasks.<br>
         - [Get All Data](#ss-get-all-data-from-bd)
         - [Insert Data into DB](#ss-insert-data-into-bd)
 - [Deployment](#deployment)
-  - [AWS](#azure)
+  - [AWS](#aws)
 - [Build](#build)
     - [Mongo](#mongo)
     - [Maven](#maven)
     - [Additional Instructions](#additional-instructions)
+- [Papers](#papers)
+    - [Eureka Server](#eureka-server)
+    - [Reactive](#reactive)
+    - [MongoDB](#mongodb)
+    - [Feign Client](#feign-client)
+
 
 ## Updating to New Releases
 
@@ -90,6 +96,15 @@ Represent of a simple crud application with Mongo - DB, WebFlux - reactive, Lomb
 
 
 ### `User Service`
+
+Will communicate with stonks-service to get data from BD, i.e. not directly.<br>
+In case failure of BD or service, it will use Hystrix, that instead of error will return the default value or use replica.
+The user won't notice anything.
+
+Also, user service use Ribbon - load balancer between replicas of other services.
+
+
+
 ### `Fine Card Service`
 
 
@@ -223,3 +238,41 @@ Note that **the project only includes a few Java SE 11**:
  * `./tools/test_cli env_stop`&ensp; - &ensp; (docker compose stop) stop containers, but won't remove them. 
  * `./tools/test_cli env_down`&ensp; - &ensp; (docker compose down) stop containers, and it removes. 
  * `./tools/test_cli env_restart`&ensp; - &ensp; (docker compose restart) restart one or more containers 
+
+
+
+##Papers
+
+
+
+###Eureka Server
+
+*Eureka Server:* It contains a registry of services, and a REST API that can be used to register a service, unregister a service, and determine the location of other services.<br>
+
+*Eureka Service:* Any application that can be found in the Eureka Seven service registry and that can be detected by other services. The service has a specific ID, that can refer to one or more instances of the same application.<br>
+
+*Eureka Instance:* Any application that is registered on the Eureka Server for discovery by others.
+
+*Eureka Client:* Any application that can detect services. It only requests the service registry from Eureka Server to identify running instances of microservices.<br>
+
+####How it works
+By default, the Eureka client starts in the `STARTING` state, which allows the instance to perform initialization for a specific application before it can serve traffic.<br>
+
+#### TIme Lag
+All operations with Eureka Client may take some time to be reflected on Eureka Server, and then on other Eureka clients.
+This is due to caching of useful data on the server, which is periodically updated to display new information.
+
+####Status check
+After successful registration, Eureka always declares that the app is in the "UP" state.
+Change this behavior by enabling Eureka health checks.
+  ```
+  eureka:
+  client:
+  healthcheck:
+  enabled: true
+  ```
+###MongoDB
+
+###Reactive
+
+###Feign Client
