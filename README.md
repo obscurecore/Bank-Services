@@ -169,7 +169,7 @@ Note that **the project only includes a few Java SE 11**:
 * **Notes:**&ensp;hasRole ("GUEST","USER","ADMIN")
 
 ---
-####  &ensp;S, Insert data into BD.
+####  &ensp;SS, Insert data into BD.
 
 * **URL:**&ensp;/create 
 * **Method:**&ensp;`POST`
