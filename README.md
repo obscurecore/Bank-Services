@@ -45,7 +45,7 @@ We are always open to [your feedback](https://github.com/obscurecore/Bank-Servic
 
 ## Briefing
 
-###`Plan:`
+### `Plan:`
 
 * Configure Eureka Server, Eureka Client (User-Service, Stonks-Service).
 * Use the MongoDB database for all this, and write reactive services on Spring 5. 
