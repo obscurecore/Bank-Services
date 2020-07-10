@@ -53,9 +53,11 @@ public class StockRestController {
         return bucketRepository.findAll();
     }
 
+
     @PostMapping("/create")
-    public Mono<Stonk> createBucket(@Valid @RequestBody Stonk stonk) {
-        return bucketRepository.save(stonk);
+    public Mono<ResponseEntity<Void>> createBucket(@Valid @RequestBody Stonk stonk) {
+        bucketRepository.save(stonk);
+        return Mono.just(new ResponseEntity<Void>(HttpStatus.OK));
     }
 
     @GetMapping("/get/{id}")
