@@ -226,25 +226,25 @@ Note that **the project only includes a few Java SE 11**:
 
 ## Deployment
 
-###AWS  
+### AWS  
 
 ## Build
 
-###Mongo
+### Mongo
  * `docker pull mongo` &ensp; - &ensp; merge with docker-hub last version.
  * `docker images` &ensp; - &ensp;check image.
  * `docker run mongo` &ensp; - &ensp; launch mongo. default port is 27017 or specify`docker run mongo --port 27017`.
  * `mongo` &ensp; - &ensp;  get into mongo shell.
  *  In case if you start stonks service `use stonksdb` - where stonksdb is the name of a database (see the application.yml) and `show collection` to see stonks object (see the Stonks class).
    
-###Maven
+### Maven
 
 * **Build:**<br>
 `./mvnw clean install`
 * **Run:**<br>
 `./mvnw spring-boot:run`
 
-###Additional Instructions
+### Additional Instructions
  * `./tools/test_cli env` &ensp; - &ensp; (docker compose up) for start or restart all services, aggregates the output of each container. 
  * `./tools/test_cli env_start`&ensp; - &ensp; (docker compose start) start the previously stopped container.
  * `./tools/test_cli env_stop`&ensp; - &ensp; (docker compose stop) stop containers, but won't remove them. 
