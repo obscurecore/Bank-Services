@@ -17,10 +17,15 @@ Below you will find some information on how to perform common tasks.<br>
   - [Fine Card Service](#fine-card-service)
 - [Supported Language Features and Tools](#supported-language-features-and-tools)
 - [Integrating with an API Backend](#integrating-with-an-api-backend)
+    - [Stonks service](#stonks-service)
+        - [Get All Data](#ss-get-all-data-from-bd)
+        - [Insert Data into DB](#ss-insert-data-into-bd)
 - [Deployment](#deployment)
   - [AWS](#azure)
-- [Description](#description)
 - [Build](#build)
+    - [Mongo](#mongo)
+    - [Maven](#maven)
+    - [Additional Instructions](#additional-instructions)
 
 ## Updating to New Releases
 
@@ -116,7 +121,7 @@ Note that **the project only includes a few Java SE 11**:
 ## Integrating with an API Backend
 
 ### `Stonks Service`
-  To get all data from BD. 
+#####  SS, Get all data from BD. 
 * **URL** &ensp; /getAll
 * **Method:** &ensp; `GET`
 * **Success Response:**
@@ -156,7 +161,7 @@ Note that **the project only includes a few Java SE 11**:
   Accept: application/json
   ```
 ---
-  create data in BD. 
+#####  SS, Insert data into BD. 
 * **URL** &ensp; /create 
 * **Method:** &ensp; `POST`
 * **Success Response:**
@@ -192,22 +197,29 @@ Note that **the project only includes a few Java SE 11**:
     "imageLink": "https://..."
   }
   ```
-  
+## Deployment
 
-
-
-
-
-
-
-
-
+###AWS  
 
 ## Build
 
-### How to build
-`./mvnw clean install`
+###Mongo
+ * `docker pull mongo` &ensp; - &ensp; merge with docker-hub last version.
+ * `docker images` &ensp; - &ensp;check image.
+ * `docker run mongo` &ensp; - &ensp; launch mongo. default port is 27017 or specify`docker run mongo --port 27017`.
+ * `mongo` &ensp; - &ensp;  get into mongo shell.
+ *  In case if you start stonks service `use stonksdb` - where stonksdb is the name of a database (see the application.yml) and `show collection` to see stonks object (see the Stonks class).
+   
+###Maven
 
-### How to run
+* **Build:**<br>
+`./mvnw clean install`
+* **Run:**<br>
 `./mvnw spring-boot:run`
 
+###Additional Instructions
+ * `./tools/test_cli env` &ensp; - &ensp; (docker compose up) for start or restart all services, aggregates the output of each container. 
+ * `./tools/test_cli env_start`&ensp; - &ensp; (docker compose start) start the previously stopped container.
+ * `./tools/test_cli env_stop`&ensp; - &ensp; (docker compose stop) stop containers, but won't remove them. 
+ * `./tools/test_cli env_down`&ensp; - &ensp; (docker compose down) stop containers, and it removes. 
+ * `./tools/test_cli env_restart`&ensp; - &ensp; (docker compose restart) restart one or more containers 
