@@ -136,13 +136,17 @@ Note that **the project only includes a few Java SE 11**:
 ## Integrating with an API Backend
 
 ### `Stonks Service`
-#####  SS, Get all data from BD. 
-* **URL** &ensp; /getAll
-* **Method:** &ensp; `GET`
+####  &ensp;SS, Get all data from BD. 
+* **URL:**&ensp;/getAll
+* **Method:**&ensp;`GET`
+* **Required:**&ensp;None
+ 
 * **Success Response:**
 
   * **Code:** 200 <br />
-    **Content:** `[
+    **Content:** 
+   ```
+     [
         {
             id : 12,
             title : "Java",
@@ -150,6 +154,7 @@ Note that **the project only includes a few Java SE 11**:
             personalNumber : 200,
             imageLink : "https://...."
         },
+  
         {
             id : 2,
             title : "Java",
@@ -157,7 +162,8 @@ Note that **the project only includes a few Java SE 11**:
             personalNumber : 437,
             imageLink : "https://...."        
         }
-    ]`
+    ]
+  ```
  
 * **Sample Call:**
 
@@ -175,18 +181,35 @@ Note that **the project only includes a few Java SE 11**:
   GET http://localhost:8081/getAll
   Accept: application/json
   ```
+* **Notes:**&ensp;hasRole ("GUEST","USER","ADMIN")
+
 ---
-#####  SS, Insert data into BD. 
-* **URL** &ensp; /create 
-* **Method:** &ensp; `POST`
+####  &ensp;SS, Insert data into BD.
+
+* **URL:**&ensp;/create 
+* **Method:**&ensp;`POST`
+* **Required:**&ensp;`title=[String, NotNull, Length<10]`
+* **Optional:**&ensp;`id=[Long]`
+* **Data Params:**
+  ```
+    {
+     "title": "Spring",
+     "description": "Cassandra",
+     "personalNumber": 1973,
+     "imageLink": "https://..."
+    }
+  ```
 * **Success Response:**
 
   * **Code:** 200 <br />
-    **Content:** empty
+    **Content:** None
     
 * **Error Response:**  
    * **Code:** 400 BAD REQUEST <br />
      **Content:** `{ title : "Max length is 10" }`
+     
+   * **Code:** 401 UNAUTHORIZED <br />
+     **Content:** `{ error : "Log in" }`
 * **Sample Call:**
 
   ```javascript
@@ -194,7 +217,7 @@ Note that **the project only includes a few Java SE 11**:
      url: "/getAll",
      contentType: "application/json",
      type : "POST",
-     data : JSON.stringify({ "id": 123, "title": "Spring Data", "description": "Cassandra", "personalNumber": 1973, "imageLink": "https://..."}),
+     data : JSON.stringify({ "id": 123, "title": "Spring", "description": "Cassandra", "personalNumber": 1973, "imageLink": "https://..."}),
      success : function() {
        console.log("GJ");
      }
@@ -212,27 +235,32 @@ Note that **the project only includes a few Java SE 11**:
     "imageLink": "https://..."
   }
   ```
+  
+* **Notes:**&ensp;hasRole ("USER","ADMIN")
+
+    
+
 ## Deployment
 
-###AWS  
+### AWS  
 
 ## Build
 
-###Mongo
+### Mongo
  * `docker pull mongo` &ensp; - &ensp; merge with docker-hub last version.
  * `docker images` &ensp; - &ensp;check image.
  * `docker run mongo` &ensp; - &ensp; launch mongo. default port is 27017 or specify`docker run mongo --port 27017`.
  * `mongo` &ensp; - &ensp;  get into mongo shell.
  *  In case if you start stonks service `use stonksdb` - where stonksdb is the name of a database (see the application.yml) and `show collection` to see stonks object (see the Stonks class).
    
-###Maven
+### Maven
 
 * **Build:**<br>
 `./mvnw clean install`
 * **Run:**<br>
 `./mvnw spring-boot:run`
 
-###Additional Instructions
+### Additional Instructions
  * `./tools/test_cli env` &ensp; - &ensp; (docker compose up) for start or restart all services, aggregates the output of each container. 
  * `./tools/test_cli env_start`&ensp; - &ensp; (docker compose start) start the previously stopped container.
  * `./tools/test_cli env_stop`&ensp; - &ensp; (docker compose stop) stop containers, but won't remove them. 
