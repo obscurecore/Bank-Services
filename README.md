@@ -303,13 +303,13 @@ Note that **the project only includes a few Java SE 11**:
 
 ### Eureka Server
 
-*Eureka Server:* It contains a registry of services, and a REST API that can be used to register a service, unregister a service, and determine the location of other services.<br>
+`Eureka Server:` It contains a registry of services, and a REST API that can be used to register a service, unregister a service, and determine the location of other services.<br>
 
-*Eureka Service:* Any application that can be found in the Eureka Seven service registry and that can be detected by other services. The service has a specific ID, that can refer to one or more instances of the same application.<br>
+`Eureka Service:` Any application that can be found in the Eureka Seven service registry and that can be detected by other services. The service has a specific ID, that can refer to one or more instances of the same application.<br>
 
-*Eureka Instance:* Any application that is registered on the Eureka Server for discovery by others.
+`Eureka Instance:` Any application that is registered on the Eureka Server for discovery by others.
 
-*Eureka Client:* Any application that can detect services. It only requests the service registry from Eureka Server to identify running instances of microservices.<br>
+`Eureka Client:` Any application that can detect services. It only requests the service registry from Eureka Server to identify running instances of microservices.<br>
 
 #### How it works
 By default, the Eureka client starts in the `STARTING` state, which allows the instance to perform initialization for a specific application before it can serve traffic.<br>
@@ -350,12 +350,50 @@ class OrderService {
 }
 ```
 
-Here's how this code works
-1. In the line 2.1 a synchronous call is made and receiving its result. The other code is located in the line 2.2.
-In this case the services are tightly coupled. Not possible to perform other actions while the ShoppingCardService is busy processing.
+`How this code works`<br>
+In the line 2.1 a synchronous call is made and receiving its result. 
+The other code is located in the line 2.2.
+In this case the services are tightly coupled. Not possible to perform other actions while the **ShoppingCardService** is busy processing.
 
+`calculate()` blocks the thread that runs the OrderService logic
+
+
+The problem can be solved using callbacks / Hi, callbackhell
+```java
+interface ShoppingCardService{                  // (1)
+    Output calculate(Input value, Consuner<Output> c);          
+}
+class OrderService {
+    private final ShoppingCardService scService;
+    
+    void process(){                             // (2)
+    Input input = ...;
+    Output output  = scService.calculate(input, output -> { //(2.1)
+       ...                                                  //(2.2)
+    });// (2.1)                                                             
+    ...                                         // (2.2)
+    }
+}       
+```
+`How this code works`<br>
+**calculate** take two arguments and nothing return,
+ i.e the calling code does not have to wait for a response
+
+Later when the ShoppingCardService sends a response of the callback function, can process (2.2)
+```java
+class AsyncShoppingCardService implements ShoppingCardService {
+    public void calculate(Input value, Consumer(Output> c){
+        new Thread(()->{
+            Output result = template.getForObject(...);
+            ...
+            c.accept(result);
+        }).start();
+    }
+} 
+```
 #### Reactive Streams 
 Reactive streams сonsist of 4-Java interfaces `publisher, subscriber, subscription and processor`.
+
 ```java
  public static interface Publisher<T> {
      public void subscribe(Subscriber<? super T> subscriber);
