@@ -20,8 +20,11 @@ Below you will find some information on how to perform common tasks.<br>
     - [Stonks service](#stonks-service)
         - [Get All Data](#ss-get-all-data-from-bd)
         - [Insert Data into DB](#ss-insert-data-into-bd)
-- [Deployment](#deployment)
-  - [AWS](#aws)
+- [Sever side](#server-side)
+    - [Change port, add User](#change-port-add-user)
+        - [Amazon Linux](#amazon-linux)
+        - [Ubuntu](#ubuntu)
+    - [Deployment](#deployment)    
 - [Build](#build)
     - [Mongo](#mongo)
     - [Maven](#maven)
@@ -29,6 +32,8 @@ Below you will find some information on how to perform common tasks.<br>
 - [Papers](#papers)
     - [Eureka Server](#eureka-server)
     - [Reactive Programming](#reactive-programming)
+        - [Implementation](#implementation)
+        - [Reactive Streams](#reactive-streams)
     - [MongoDB](#mongodb)
     - [Feign Client](#feign-client)
     - [RSocket](#rsoket)
@@ -268,9 +273,19 @@ Note that **the project only includes a few Java SE 11**:
 
     
 
-## Deployment
+## Server Side
 
-### AWS  
+### Change port, add User 
+
+####Amazon Linux
+
+1. connect via ssh 
+
+#### Ubuntu
+
+
+
+###Deployment
 
 ## Build
 
@@ -298,9 +313,6 @@ Note that **the project only includes a few Java SE 11**:
 
 
 ## Papers
-
-
-
 ### Eureka Server
 
 `Eureka Server:` It contains a registry of services, and a REST API that can be used to register a service, unregister a service, and determine the location of other services.<br>
@@ -333,19 +345,20 @@ It is based on the reactive stream specification.
 
 **!!!Reactive types are not intended to process queries or data faster!!!**
 Their special feature is their ability to concurrently process more requests and handle delayed operations more efficiently, such as requesting data from a remote server.<br>
+#### Implementation 
 
 To find out the drawbacks of imperative programming look at the implementation between the two components
 ```java
-interface ShoppingCardService{                  // (1)
+interface ShoppingCardService{                  //(1)
     Output calculate(Input value);          
 }
 class OrderService {
     private final ShoppingCardService scService;
     
-    void process(){                             // (2)
+    void process(){                             //(2)
     Input input = ...;
-    Output output  = scService.calculate(input);// (2.1)                                                             
-    ...                                         // (2.2)
+    Output output  = scService.calculate(input);//(2.1)                                                             
+    ...                                         //(2.2)
     }
 }
 ```
@@ -360,18 +373,18 @@ In this case the services are tightly coupled. Not possible to perform other act
 
 The problem can be solved using callbacks / Hi, callbackhell
 ```java
-interface ShoppingCardService{                              // (1)
+interface ShoppingCardService{                              //(1)
     Output calculate(Input value, Consumer<Output> c);          
 }
 class OrderService {
     private final ShoppingCardService scService;
     
-    void process(){                                         // (2)
+    void process(){                                         //(2)
     Input input = ...;
     Output output  = scService.calculate(input, output -> { //(2.1)
        ...                                                  //(2.2)
     });// (2.1)                                                             
-    ...                                                     // (2.2)
+    ...                                                     //(2.2)
     }
 }       
 ```
@@ -382,8 +395,8 @@ class OrderService {
 Later when the ShoppingCardService sends a response of the callback function, can process (2.2)
 ```java
 class AsyncShoppingCardService implements ShoppingCardService {
-    public void calculate(Input value, Consumer(Output> c){
-        new Thread(()->{
+    public void calculate(Input value, Consumer<Output> c){
+        new Thread(() -> {
             Output result = template.getForObject(...);
             ...
             c.accept(result);
