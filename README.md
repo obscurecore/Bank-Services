@@ -360,18 +360,18 @@ In this case the services are tightly coupled. Not possible to perform other act
 
 The problem can be solved using callbacks / Hi, callbackhell
 ```java
-interface ShoppingCardService{                  // (1)
-    Output calculate(Input value, Consuner<Output> c);          
+interface ShoppingCardService{                              // (1)
+    Output calculate(Input value, Consumer<Output> c);          
 }
 class OrderService {
     private final ShoppingCardService scService;
     
-    void process(){                             // (2)
+    void process(){                                         // (2)
     Input input = ...;
     Output output  = scService.calculate(input, output -> { //(2.1)
        ...                                                  //(2.2)
     });// (2.1)                                                             
-    ...                                         // (2.2)
+    ...                                                     // (2.2)
     }
 }       
 ```
