@@ -332,8 +332,28 @@ Project Reactor is a Java 8 library that implements the reactive programming mod
 It is based on the reactive stream specification.
 
 **!!!Reactive types are not intended to process queries or data faster!!!**
-
 Their special feature is their ability to concurrently process more requests and handle delayed operations more efficiently, such as requesting data from a remote server.<br>
+
+To find out the drawbacks of imperative programming look at the implementation between the two components
+```java
+interface ShoppingCardService{                  // (1)
+    Output calculate(Input value);          
+}
+class OrderService {
+    private final ShoppingCardService scService;
+    
+    void process(){                             // (2)
+    Input input = ...;
+    Output output  = scService.calculate(input);// (2.1)                                                             
+    ...                                         // (2.2)
+    }
+}
+```
+
+Here's how this code works
+1. In the line 2.1 a synchronous call is made and receiving its result. The other code is located in the line 2.2.
+In this case the services are tightly coupled. Not possible to perform other actions while the ShoppingCardService is busy processing.
+
 #### Reactive Streams 
 Reactive streams сonsist of 4-Java interfaces `publisher, subscriber, subscription and processor`.
 ```java
@@ -363,9 +383,8 @@ They all have the following requirements:
 A mechanism that allows the recipient to ask how much data they want to get.
 In other words, the recipient starts receiving data only when it is ready to process it.
 ---
-* Observer ![schema_ractor](https://i2.wp.com/springgears.com/wp-content/uploads/2018/11/Blank-Diagram.png?resize=768%2C387&ssl=1?style=centerme)
-* Flux ![schema_flux](https://i1.wp.com/springgears.com/wp-content/uploads/2018/12/flux.png?w=640&ssl=1?style=centerme)
-* Mono ![schema_flux](https://i2.wp.com/springgears.com/wp-content/uploads/2018/12/mono.png?w=640&ssl=1)
+![schema_ractor](https://i2.wp.com/springgears.com/wp-content/uploads/2018/11/Blank-Diagram.png?resize=768%2C387&ssl=1?style=centerme)
+
 
 ### MongoDB
 
