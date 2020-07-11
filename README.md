@@ -22,7 +22,7 @@ Below you will find some information on how to perform common tasks.<br>
         - [Insert Data into DB](#ss-insert-data-into-bd)
 - [Sever side](#server-side)
     - [Change port, add User](#change-port-add-user)
-        - [Amazon Linux 2](#amazon-linux)
+        - [Amazon Linux 2](#amazon-linux-2)
         - [Ubuntu](#ubuntu)
     - [Deployment](#deployment)    
 - [Build](#build)
@@ -424,7 +424,7 @@ class OrderService {
     Input input = ...;
     Output output  = scService.calculate(input, output -> { //(2.1)
        ...                                                  //(2.2)
-    });// (2.1)                                                             
+    });                                                          
     ...                                                     //(2.2)
     }
 }       
