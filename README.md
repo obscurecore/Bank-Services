@@ -1,6 +1,6 @@
 # Bank-Services
 
-Microservice project with reactive approach for the banking application.
+Microservice project with reactive approach for the bank.
 
 Below you will find some information on how to perform common tasks.<br>
 
@@ -22,7 +22,7 @@ Below you will find some information on how to perform common tasks.<br>
         - [Insert Data into DB](#ss-insert-data-into-bd)
 - [Sever side](#server-side)
     - [Change port, add User](#change-port-add-user)
-        - [Amazon Linux](#amazon-linux)
+        - [Amazon Linux 2](#amazon-linux)
         - [Ubuntu](#ubuntu)
     - [Deployment](#deployment)    
 - [Build](#build)
@@ -52,7 +52,7 @@ We are always open to [your feedback](https://github.com/obscurecore/Bank-Servic
 
 ### `Plan:`
 * Configure Eureka Server, Eureka Client (User-Service, Stonks-Service).
-* Use the MongoDB database for all this, and write reactive services on Spring 5. 
+* Use the Postgres, Mongo database, and write reactive services on Spring 5. 
 * Make friends with the services and make them communicate via RestTemplate, Feign Client, WebClient for the statistic.
 ---
 * Add the Zuul API Gateway, a Ribbon load balancer.
@@ -72,12 +72,6 @@ We are always open to [your feedback](https://github.com/obscurecore/Bank-Servic
 * Explore Axon
 
 ![schema_ractor](https://i.ibb.co/MNYvmww/arch.png)
-
-
-
-
-
-
 ## Project Structure
 
 After creation, your project should look like this:
@@ -120,14 +114,22 @@ Client that was used 3 unsuccessful attempts with interval in 30 seconds will be
  
 Interaction of servers with each other is the same as with Client and Server.
 If has problem it try to check all peer nodes or protect already available.
+---
 ### `Zuul Service`
+
+---
 ### `Security Service`
+
+
+---
 ### `Stonks Service`
 
 Represent of a simple crud application with Mongo - DB, WebFlux - reactive, Lombok - convenience.
 
 
 
+
+---
 ### `User Service`
 
 Will communicate with stonks-service to get data from BD, i.e. not directly.<br>
@@ -136,8 +138,7 @@ The user won't notice anything.
 
 Also, user service use Ribbon - load balancer between replicas of other services.
 
-
-
+---
 ### `Fine Card Service`
 
 
@@ -277,15 +278,55 @@ Note that **the project only includes a few Java SE 11**:
 
 ### Change port, add User 
 
-####Amazon Linux
+#### Amazon Linux 2
 
-1. connect via ssh 
-
+* Add custom TCP port in the security group.
+* Connect via ssh `ssh "<key>" ec2-user@user2-**-**-**-**-**.compute-1.amazonaws.com`.
+* Add new user "developer" `sudo useradd -m -d /home/developer developer`.
+* Setting password `passwd developer`.
+* Add user in group `usermod -a -G wheel developer`.
+* Open ssh config file `sudo nano /etc/ssh/sshd_config`.
+* Change lines.
+```
+Port 22 -> Port 12
+PaermitRootLogin yes -> PermitRootLogin no
++ AllowUsers developer
+``` 
+* Open new user's bashrc file.  
+```
+cd /home/developer
+nano .bashrc
+```
+* Add line `force_color_promt=yes`.
+* Reload. 
+```
+(sudo systemctl enable sshd.service)
+(sudo systemctl start sshd.service)
+ sudo systemctl stop sshd.service
+ sudo systemctl start sshd.service
+```
+---
 #### Ubuntu
-
-
-
-###Deployment
+* Connect via ssh `ssh root@185.143.173.124`.
+* Install sudo `apt-get install sudo`.
+* Add new user "developer" `useradd -m -d /home/developer developer`.
+* Setting password `passwd developer`.
+* Add user in group `usermod -a -G sudo developer`.
+* Open ssh config file `nano /etc/ssh/sshd_config`.
+* Change lines.
+```
+Port 22 -> Port 12
+PaermitRootLogin yes -> PermitRootLogin no
++ AllowUsers developer
+``` 
+* Open new user's bashrc file.
+```
+cd /home/developer
+nano .bashrc
+```
+* Add line `force_color_promt=yes`.
+* Reload. `service ssh reload`
+### Deployment
 
 ## Build
 
@@ -295,14 +336,14 @@ Note that **the project only includes a few Java SE 11**:
  * `docker run mongo` &ensp; - &ensp; launch mongo. default port is 27017 or specify`docker run mongo --port 27017`.
  * `mongo` &ensp; - &ensp;  get into mongo shell.
  *  In case if you start stonks service `use stonksdb` - where stonksdb is the name of a database (see the application.yml) and `show collection` to see stonks object (see the Stonks class).
-   
+---   
 ### Maven
 
 * **Build:**<br>
 `./mvnw clean install`
 * **Run:**<br>
 `./mvnw spring-boot:run`
-
+---
 ### Additional Instructions
  * `./tools/test_cli env` &ensp; - &ensp; (docker compose up) for start or restart all services, aggregates the output of each container. 
  * `./tools/test_cli env_start`&ensp; - &ensp; (docker compose start) start the previously stopped container.
