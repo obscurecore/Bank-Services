@@ -18,8 +18,15 @@ Below you will find some information on how to perform common tasks.<br>
 - [Supported Language Features and Tools](#supported-language-features-and-tools)
 - [Integrating with an API Backend](#integrating-with-an-api-backend)
     - [Stonks service](#stonks-service)
-        - [Get All Data](#ss-get-all-data-from-bd)
-        - [Insert Data into DB](#ss-insert-data-into-bd)
+        - [Meta-Information](#enspss-get-meta-information-about-service)
+        - [Get All Data (FeignClient/RestTemplate)](#enspss-get-all-data-from-bd)
+        - [Insert Data into DB](#enspss-insert-data-into-bd)
+        - [Get/Delete Data](#enspss-getdelete-data-by-id-from-bd)
+        - [Get All Data as SSE](#enspss-get-data-as-sse-from-bd)
+        - [Get Default Value Every 1 Seconds](#)
+        - [Get All Data Every N seconds](#)
+
+
 - [Sever side](#server-side)
     - [Change port, add User](#change-port-add-user)
         - [Amazon Linux 2](#amazon-linux-2)
@@ -170,13 +177,41 @@ Note that **the project only includes a few Java SE 11**:
 ## Integrating with an API Backend
 
 ### `Stonks Service`
-####  &ensp;SS, Get all data from BD. 
-* **URL:**&ensp;/getAll
-* **Method:**&ensp;`GET`
+
+####  &ensp;SS, Get Meta-Information about service.
+* **URL:**&ensp;/
+* **Method:**&ensp;`GET`,`POST`, `PUT`, `DELETE`, `PATCH`
 * **Required:**&ensp;None
  
 * **Success Response:**
 
+  * **Code:** 200 <br />
+    **Content:** `Stonks-Service running at port: 8081`
+ 
+* **Sample Call:**
+
+  ```javascript
+  $.ajax({
+     url: "/",
+     dataType: "String",
+     type : "GET",
+     success : function(r) {
+       console.log(r);
+     }
+  });
+  ```
+  ```http request
+  GET http://localhost:8081/
+  Accept: application/json
+  ```
+* **Notes:**&ensp;hasRole ("GUEST","USER","ADMIN")
+
+---
+####  &ensp;SS, Get all data from BD. 
+* **URL:**&ensp;`/getAll`, `/show` - Feign Client (on User-Service side) , `/data` - Rest Template (on User-Service side)
+* **Method:**&ensp;`GET`
+* **Required:**&ensp;None
+* **Success Response:**
   * **Code:** 200 <br />
     **Content:** 
    ```javascript
@@ -188,7 +223,6 @@ Note that **the project only includes a few Java SE 11**:
             personalNumber : 200,
             imageLink : "https://...."
         },
-  
         {
             id : 2,
             title : "Java",
@@ -236,7 +270,17 @@ Note that **the project only includes a few Java SE 11**:
 * **Success Response:**
 
   * **Code:** 200 <br />
-    **Content:** None
+     **Content:** 
+       ```javascript
+         [
+            {
+                id : 12,
+                title : "Java",
+                description : "OOP",
+                personalNumber : 200,
+                imageLink : "https://...."
+            }
+    ```
     
 * **Error Response:**  
    * **Code:** 400 BAD REQUEST <br />
@@ -272,7 +316,127 @@ Note that **the project only includes a few Java SE 11**:
   
 * **Notes:**&ensp;hasRole ("USER","ADMIN")
 
-    
+
+####  &ensp;SS, Get/Delete data by ID from BD. 
+* **URL:**&ensp;`/get/{id}`, `delete/{id}`)
+* **Method:**&ensp;`GET`,`DELETE`
+* **Required:**&ensp;None
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** 
+   ```javascript
+        {
+            id : 12,
+            title : "Java",
+            description : "OOP",
+            personalNumber : 200,
+            imageLink : "https://...."
+        }
+  ```
+  * **Error Response:**
+  
+    * **Code:** 404 NOT FOUND <br />
+ 
+* **Sample Call:**
+
+  ```javascript
+  $.ajax({
+     url: "/get/{id}",
+     dataType: "json",
+     type : "GET",
+     success : function(r) {
+       console.log(r);
+     }
+  });
+  ``` 
+  ```http request
+  GET http://localhost:8081/get/{id}
+  Accept: application/json
+  ```
+* **Notes:**&ensp;for get hasRole ("GUEST","USER","ADMIN"), for delete hasRole ("USER","ADMIN")
+
+---
+  
+####  &ensp;SS, Delete All data every N(2) second. 
+* **URL:**&ensp;`/deleteAllStonks`)
+* **Method:**&ensp;`DELETE`
+* **Required:**&ensp;None
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** NONE
+---
+
+
+
+####  &ensp;SS, Get data as SSE from BD. 
+* **URL:**&ensp;`/stream/stonks`)
+* **Method:**&ensp;`GET`
+* **Required:**&ensp;None
+* **Success Response:**
+  * **Code:** 200 <br />
+    **Content:** 
+   ```javascript
+     [
+        {
+            id : 12,
+            title : "Java",
+            description : "OOP",
+            personalNumber : 200,
+            imageLink : "https://...."
+        },
+        {
+            id : 2,
+            title : "Java",
+            description : "Stream API",
+            personalNumber : 437,
+            imageLink : "https://...."        
+        }
+    ]
+  ```
+---
+
+
+
+####  &ensp;SS, Get default data every 1 second. 
+* **URL:**&ensp;`/stream/stonks/default`)
+* **Method:**&ensp;`GET`
+* **Required:**&ensp;None
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** 
+   ```javascript
+        {
+            id : val,
+            title : "Python",
+            description : "default theme",
+            personalNumber : 0,
+            imageLink : "https://...."
+        }
+  ```
+---
+
+####  &ensp;SS, Get All data every N(2) second. 
+* **URL:**&ensp;`/stream/stonks/delay`)
+* **Method:**&ensp;`GET`
+* **Required:**&ensp;None
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** 
+   ```javascript
+        {
+            id : val,
+            title : "Python",
+            description : "default theme",
+            personalNumber : 0,
+            imageLink : "https://...."
+        }
+  ```
+---
+
 
 ## Server Side
 
@@ -331,7 +495,7 @@ nano .bashrc
 ## Build
 
 ### Mongo
- * `docker pull mongo` &ensp; - &ensp; merge with docker-hub last version.
+ * `docker pull mongo` &ensp; - &ensp; merge last version with docker-hub.
  * `docker images` &ensp; - &ensp;check image.
  * `docker run mongo` &ensp; - &ensp; launch mongo. default port is 27017 or specify`docker run mongo --port 27017`.
  * `mongo` &ensp; - &ensp;  get into mongo shell.
