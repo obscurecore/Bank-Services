@@ -5,9 +5,14 @@ import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+/**
+ * The type Stonk.
+ * @author Ruslan Potapov
+ */
 @Data
 @Builder
 @AllArgsConstructor
