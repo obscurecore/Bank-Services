@@ -42,6 +42,7 @@ Below you will find some information on how to perform common tasks.<br>
     - [MongoDB](#mongodb)
     - [Feign Client](#feign-client)
     - [RSocket](#rsoket)
+    - [WebClient](#webclient)
 
 
 ## Updating to New Releases
@@ -655,5 +656,21 @@ In other words, the recipient starts receiving data only when it is ready to pro
 
 ### Feign Client
 
+This is a simple and flexible http client that is natively integrated with `Ribbon` and `Hystrix`.<br>
+Its feature is that we do not need to know where and on what port a service is located.
+We just say Feign to the client, go to `Wonder-Service` and get all the users from him.
+Then Feign refers to `Eureka Server` and asks where `Wonder-Service` is located.
 
+
+If `Wonder-Service` was registered in `Eureka Server`,
+ then `Eureka` will know everything about `Wonder-Service` (where it is located, on what port, its URL, etc.).<br>
+You only need to describe how to access the remote API service, specifying details such as the URL, request and response body, accepted headers, and so on.
+
+
+Netflix provides Feign as an abstraction for REST based calls,
 ### RSocket
+
+### WebClient
+For endpoint testing `WebFlux` environment comes with the `WebTestClient` class. 
+`WebTestClient` is a thin wrapper around WebClient. 
+You can use it to run queries and check responses.
