@@ -2,11 +2,14 @@
 spring:
   # DataBase
   datasource:
-    password: 1234
-    url: jdbc:postgresql://localhost:5432/postgres
+    password: frnbvtkm
+    url: jdbc:postgresql://localhost:5432/flywaytest
     username: postgres
   jpa:
-    generate-ddl: true
+    generate-ddl: false
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
 
   # Mail
   mail:
