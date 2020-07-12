@@ -25,8 +25,6 @@ Below you will find some information on how to perform common tasks.<br>
         - [Get All Data as SSE](#enspss-get-data-as-sse-from-bd)
         - [Get Default Value Every 1 Seconds](#)
         - [Get All Data Every N seconds](#)
-
-
 - [Sever side](#server-side)
     - [Change port, add User](#change-port-add-user)
         - [Amazon Linux 2](#amazon-linux-2)
@@ -56,7 +54,20 @@ We commit to keeping the breaking changes minimal, so you can upgrade painlessly
 We are always open to [your feedback](https://github.com/obscurecore/Bank-Services/issues).
 
 ## Briefing
+### `Architecture`
+![schema_ractor](https://i.ibb.co/MNYvmww/arch.png)
 
+---
+### `Functions:`
+* Provide responsiveness under load
+* The system remains functional even if one of the components fails.
+* The system should take up the optimal amount of resources in each time period.
+* Communication between services must occur via asynchronous messages.
+  Each element of the system requests information from another element,
+   but does not expect to get the result immediately.
+   Instead, it continues to perform its tasks.
+
+---
 ### `Plan:`
 * Configure Eureka Server, Eureka Client (User-Service, Stonks-Service).
 * Use the Postgres, Mongo database, and write reactive services on Spring 5. 
@@ -77,10 +88,7 @@ We are always open to [your feedback](https://github.com/obscurecore/Bank-Servic
 ---
 * Use Saga Pattern
 * Explore Axon
-
-![schema_ractor](https://i.ibb.co/MNYvmww/arch.png)
 ## Project Structure
-
 After creation, your project should look like this:
 
 ```text
