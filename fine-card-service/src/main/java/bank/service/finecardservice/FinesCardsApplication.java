@@ -5,6 +5,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
+/**
+ * The type Fines cards application.
+ * @author Ruslan Potapov
+ */
 @SpringBootApplication
 @EnableConfigurationProperties({FinesProperties.class})
 public class FinesCardsApplication {
