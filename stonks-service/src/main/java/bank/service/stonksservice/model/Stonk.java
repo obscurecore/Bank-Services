@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotBlank;
@@ -20,7 +21,7 @@ import javax.validation.constraints.Size;
 public class Stonk {
 
     @Id
-    private Long id;
+    private String id;
 
     @NotBlank (message = "not blank")
     @Size(max = 10, message = "max size is 10")
@@ -29,5 +30,4 @@ public class Stonk {
     private int personalNumber;
 
     private String imageLink;
-
 }

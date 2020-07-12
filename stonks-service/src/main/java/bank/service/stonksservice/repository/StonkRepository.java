@@ -10,6 +10,5 @@ import org.springframework.stereotype.Repository;
  * @author Ruslan Potapov
  */
 @Repository
-public interface BucketRepository extends ReactiveMongoRepository<Stonk, Long> {
-
+public interface StonkRepository extends ReactiveMongoRepository<Stonk, String> {
 }

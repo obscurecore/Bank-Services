@@ -1,7 +1,7 @@
 package bank.service.stonksservice;
 
 import bank.service.stonksservice.model.Stonk;
-import bank.service.stonksservice.repository.BucketRepository;
+import bank.service.stonksservice.repository.StonkRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -24,25 +24,25 @@ public class StonksServiceApplication {
      * Creates a Flux of four sample Persons objects, saves them to the DB.
      * Then, queries all the Persons from the DB and print them to the console.
      *
-     * @param bucketRepository the bucket repository
+     * @param stonkRepository the stonk repository
      * @return the command line runner
      * @author Ruslan Potapov
      */
     @Bean
-    CommandLineRunner run(BucketRepository bucketRepository) {
+    CommandLineRunner run(StonkRepository stonkRepository) {
         return args -> {
-            bucketRepository.deleteAll()
+            stonkRepository.deleteAll()
                     .thenMany(Flux.just(
-                            new Stonk((long) 1, "Java", "OOP", 280, "http://infopulse-univer.com.ua/images/trenings/java.png"),
-                            new Stonk((long) 2, "Java", "Stream API", 437, "https://www.hdwallpaperslife.com/wp-content/uploads/2018/09/JAVA14-480x270.png"),
-                            new Stonk((long) 3, "Java", "Collections", 14, "https://i.ytimg.com/vi/oOOESCvGGcI/hqdefault.jpg"),
-                            new Stonk((long) 4, ".NET", "Basic", 1213, "https://upload.wikimedia.org/wikipedia/commons/0/0e/Microsoft_.NET_logo.png")
+                            new Stonk("1","Java", "OOP", 280, "http://infopulse-univer.com.ua/images/trenings/java.png"),
+                            new Stonk("2","Java", "Stream API", 437, "https://www.hdwallpaperslife.com/wp-content/uploads/2018/09/JAVA14-480x270.png"),
+                            new Stonk("3","Java", "Collections", 14, "https://i.ytimg.com/vi/oOOESCvGGcI/hqdefault.jpg"),
+                            new Stonk("4",".NET", "Basic", 1213, "https://upload.wikimedia.org/wikipedia/commons/0/0e/Microsoft_.NET_logo.png")
                     )
-                            .flatMap(bucketRepository::save))
-                    .thenMany(bucketRepository.findAll())
+                            .flatMap(stonkRepository::save))
+                    .thenMany(stonkRepository.findAll())
                     .subscribe(System.out::println);
         };
     }
 
-
 }
+

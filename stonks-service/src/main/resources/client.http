@@ -1,13 +1,29 @@
+GET http://localhost:8081/stream/stonks
+Accept: application/json
+
+###
+DELETE http://localhost:8081/get/2
+Accept: application/json
+
+###
+GET http://localhost:8081/get/
+Accept: application/json
+
+###
+GET http://localhost:8081/get/2
+
+
+###
 
 ###
 POST http://localhost:8081/create
 Content-Type: application/json
 
 {
-  "id": 7898,
-  "title": "789777777777777777J7",
-  "description": "OOP79879",
-  "personalNumber": 28078979,
+  "id": "2",
+  "title": "Java",
+  "description": "OO",
+  "personalNumber": 2979,
   "imageLink": "http://infopulse-univer.com.ua/images/trenings/java.png"
 }
 
