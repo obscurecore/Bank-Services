@@ -4,12 +4,16 @@ package bank.service.userservice.controller;
 import bank.service.userservice.model.Stonk;
 import bank.service.userservice.service.ServiceFeignClient;
 import bank.service.userservice.service.RestTemplateService;
+import bank.service.userservice.service.WebClientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.env.Environment;
+import org.springframework.http.MediaType;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Flux;
 
 import java.util.List;
 
@@ -26,6 +30,7 @@ public class UserController {
 
     private final Environment env;
     private final RestTemplateService service;
+    private WebClientService webClientService;
 
     /**
      * This is useful for debugging
@@ -58,6 +63,20 @@ public class UserController {
     @GetMapping("/data")
     public String data() {
         return service.data();
+
     }
+
+    /**
+     * Using WebClient
+     *
+     * @return the data by web client
+     */
+    @GetMapping(value = "/getDataByWebClient",produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<Stonk> getDataByWebClient() {
+        return webClientService.getDataByWebClient();
+    }
+
+
+
 
 }
