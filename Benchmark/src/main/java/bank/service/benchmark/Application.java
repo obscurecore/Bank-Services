@@ -8,6 +8,7 @@ import joptsimple.OptionSet;
 import joptsimple.OptionSpec;
 import lombok.SneakyThrows;
 
+import java.time.Duration;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -54,6 +55,13 @@ public class Application {
         final Map<String, String> headers = optionSet.valuesOf(headerSpec).stream()
                 .map(res -> res.split(":", 2))
                 .collect(Collectors.toMap(res -> res[0], res -> res[1]));
+
+        BootLoader bootLoader = new BootLoader(optionSet.valueOf(addressSpec), optionSet.has(sslSpec),
+                headers, optionSet.has(debugSpec), optionSet.has(sseSpec));
+
+        bootLoader.run(optionSet.valueOf(threadSpec), optionSet.valueOf(connectionsSpec),
+                optionSet.valueOf(maxRequestSpec), Duration.parse("PT" + optionSet.valueOf(durationSpec).toUpperCase()));
+
     }
 
 }
