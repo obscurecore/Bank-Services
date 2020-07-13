@@ -23,7 +23,7 @@ repositories {
 
 jar {
     manifest {
-        attributes 'Main-Class': 'bank.services.benchmark.RxApplication'
+        attributes 'Main-Class': 'bank.services.benchmark.Application'
     }
 }
 
