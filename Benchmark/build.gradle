@@ -1,14 +1,39 @@
-plugins {
-    id 'java'
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.1'
+    }
 }
 
-group 'org.example'
-version '1.0-SNAPSHOT'
+apply plugin: 'com.github.johnrengelman.shadow'
+apply plugin: 'java'
+
+
+version = '0.0.1'
+group = 'bank.services'
+sourceCompatibility = 1.8
 
 repositories {
+    mavenLocal()
+    jcenter()
     mavenCentral()
 }
 
-dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+jar {
+    manifest {
+        attributes 'Main-Class': 'bank.services.benchmark.RxApplication'
+    }
 }
+
+shadowJar {
+    classifier = null
+}
+
+dependencies {
+    compile 'io.reactivex:rxnetty-http:0.5.2'
+    compile 'net.sf.jopt-simple:jopt-simple:5.0.4'
+    compileOnly 'org.projectlombok:lombok:1.16.18'
+}
+tasks.build.finalizedBy shadowJar
