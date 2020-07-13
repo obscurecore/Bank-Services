@@ -21,6 +21,11 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+/**
+ * The type Boot loader.
+ *
+ * @author Ruslan Potapov
+ */
 public class BootLoader {
     private final HttpClientRequest<ByteBuf, ByteBuf> clientObs;
     private final String address;
