@@ -100,7 +100,7 @@ public class StonkController {
         return stonkRepository.deleteAll();
     }
 
-    // Buckets are Sent to the client as Server Sent Events
+    // Stonks are Sent to the client as Server Sent Events
     @GetMapping(value = "/stream/stonks", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<Stonk> streamAllStonks() {
         return stonkRepository.findAll();
