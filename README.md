@@ -18,19 +18,16 @@ Below you will find some information on how to perform common tasks.<br>
 - [Supported Language Features and Tools](#supported-language-features-and-tools)
 - [Integrating with an API Backend](#integrating-with-an-api-backend)
     - [Stonks service](#stonks-service)
-        - [Meta-Information](#enspss-get-meta-information-about-service)
-        - [Get All Data (FeignClient/RestTemplate)](#enspss-get-all-data-from-bd)
-        - [Insert Data into DB](#enspss-insert-data-into-bd)
-        - [Get/Delete Data](#enspss-getdelete-data-by-id-from-bd)
-        - [Get All Data as SSE](#enspss-get-data-as-sse-from-bd)
-        - [Get Default Value Every 1 Seconds](#)
-        - [Get All Data Every N seconds](#)
+        - [Create](#ss-create)
+        - [Read](#ss-read)
+        - [Update](#ss-update)
+        - [Delete](#ss-delete)
 - [Sever side](#server-side)
-    - [Change port, add User](#change-port-add-user)
+    - [Change SSH port, add User](#change-port-add-user)
         - [Amazon Linux 2](#amazon-linux-2)
         - [Ubuntu](#ubuntu)
     - [Deployment](#deployment)    
-- [Build](#build)
+- [Build](#build)2489
     - [Mongo](#mongo)
     - [Maven](#maven)
     - [Additional Instructions](#additional-instructions)
@@ -135,7 +132,7 @@ If has problem it try to check all peer nodes or protect already available.
 
 ---
 ### `Security Service`
-
+![er_security](https://i.ibb.co/Pt6jkqf/bd-security.png)
 
 ---
 ### `Stonks Service`
@@ -187,18 +184,76 @@ Note that **the project only includes a few Java SE 11**:
 
 ### `Stonks Service`
 
-####  &ensp;SS, Get Meta-Information about service.
+#### SS, Create
+* **URL:**&ensp;/create 
+* **Method:**&ensp;`POST`
+* **Required:**&ensp;`title=[String, NotNull, Length<10]`
+* **Optional:**&ensp;`id=[String]`
+* **Data Params:**
+```
+    {
+     "title": "Spring",
+     "description": "Cassandra",
+     "personalNumber": 1973,
+     "imageLink": "https://..."
+    }
+```
+* **Success Response:**
+  * **Code:** 200 <br />
+     **Content:** 
+```javascript
+    {
+        id : 12,
+        title : "Java",
+        description : "OOP",
+        personalNumber : 200,
+        imageLink : "https://...."
+    }
+```
+    
+* **Error Response:**  
+   * **Code:** 400 BAD REQUEST <br />
+     **Content:** `{ title : "Max length is 10" }`
+     
+   * **Code:** 401 UNAUTHORIZED <br />
+     **Content:** `{ error : "Log in" }`
+* **Sample Call:**
+
+```javascript
+  $.ajax({
+     url: "/create",
+     contentType: "application/json",
+     type : "POST",
+     data : JSON.stringify({ "id": 123, "title": "Spring", "description": "Cassandra", "personalNumber": 1973, "imageLink": "https://..."}),
+     success : function() {
+       console.log("GJ");
+     }
+  });
+```
+```http request
+  POST http://localhost:8081/create
+  Content-Type: application/json
+  
+  {
+    "id": 123,
+    "title": "Spring Data",
+    "description": "Cassandra",
+    "personalNumber": 1973,
+    "imageLink": "https://..."
+  }
+```
+  
+* **Notes:**&ensp;hasRole ("USER","ADMIN")
+
+#### SS, Read
+_Meta Information_
 * **URL:**&ensp;/
 * **Method:**&ensp;`GET`,`POST`, `PUT`, `DELETE`, `PATCH`
 * **Required:**&ensp;None
- 
 * **Success Response:**
-
   * **Code:** 200 <br />
     **Content:** `Stonks-Service running at port: 8081`
- 
 * **Sample Call:**
-
   ```javascript
   $.ajax({
      url: "/",
@@ -216,14 +271,14 @@ Note that **the project only includes a few Java SE 11**:
 * **Notes:**&ensp;hasRole ("GUEST","USER","ADMIN")
 
 ---
-####  &ensp;SS, Get all data from BD. 
+_Read All Data_ 
 * **URL:**&ensp;`/getAll`, `/show` - Feign Client (on User-Service side) , `/data` - Rest Template (on User-Service side)
 * **Method:**&ensp;`GET`
 * **Required:**&ensp;None
 * **Success Response:**
   * **Code:** 200 <br />
     **Content:** 
-   ```javascript
+```javascript
      [
         {
             id : 12,
@@ -240,11 +295,10 @@ Note that **the project only includes a few Java SE 11**:
             imageLink : "https://...."        
         }
     ]
-  ```
- 
+```
 * **Sample Call:**
 
-  ```javascript
+```javascript
   $.ajax({
      url: "/getAll",
      dataType: "json",
@@ -253,65 +307,175 @@ Note that **the project only includes a few Java SE 11**:
        console.log(r);
      }
   });
-  ```
-  ```http request
+```
+```http request
   GET http://localhost:8081/getAll
   Accept: application/json
-  ```
+```
 * **Notes:**&ensp;hasRole ("GUEST","USER","ADMIN")
 
 ---
-####  &ensp;SS, Insert data into BD.
+_Read By ID_  
+* **URL:**&ensp;`read/{id}`
+* **Method:**&ensp;`GET`
+* **Required:**&ensp;None
+* **Success Response:**
 
-* **URL:**&ensp;/create 
-* **Method:**&ensp;`POST`
-* **Required:**&ensp;`title=[String, NotNull, Length<10]`
-* **Optional:**&ensp;`id=[Long]`
-* **Data Params:**
+  * **Code:** 200 <br />
+    **Content:** 
+```javascript
+        {
+            id : 12,
+            title : "Java",
+            description : "OOP",
+            personalNumber : 200,
+            imageLink : "https://...."
+        }
+```
+  * **Error Response:**
+  
+    * **Code:** 404 NOT FOUND <br />
+ 
+* **Sample Call:**
+
+  ```javascript
+  $.ajax({
+     url: "/get/{id}",
+     dataType: "json",
+     type : "GET",
+     success : function(r) {
+       console.log(r);
+     }
+  });
+  ``` 
+  ```http request
+  GET http://localhost:8081/get/{id}
+  Accept: application/json
   ```
+* **Notes:**&ensp; hasRole ("GUEST","USER","ADMIN")
+
+_Read All Data, SSE_  
+* **URL:**&ensp;`/stream/stonks`)
+* **Method:**&ensp;`GET`
+* **Required:**&ensp;None
+* **Success Response:**
+  * **Code:** 200 <br />
+    **Content:** 
+```javascript
+    [
+        {
+            id : 12,
+            title : "Java",
+            description : "OOP",
+            personalNumber : 200,
+            imageLink : "https://...."
+        },
+        {
+            id : 2,
+            title : "Java",
+            description : "Stream API",
+            personalNumber : 437,
+            imageLink : "https://...."        
+        }
+    ]
+```
+* **Notes:**&ensp; hasRole ("GUEST","USER","ADMIN")
+
+---
+_Read Default Data Every 1 Second, SSE_  
+* **URL:**&ensp;`/stream/stonks/default`)
+* **Method:**&ensp;`GET`
+* **Required:**&ensp;None
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** 
+```javascript
+        {
+            id : "val",
+            title : "Python",
+            description : "default theme",
+            personalNumber : 0,
+            imageLink : "https://...."
+        }
+```
+* **Notes:**&ensp; hasRole ("GUEST","USER","ADMIN")
+
+---
+_Read All Data Every N Second, SSE_  
+* **URL:**&ensp;`/stream/stonks/delay`)
+* **Method:**&ensp;`GET`
+* **Required:**&ensp;None
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** 
+```javascript
+  [
+      {
+            id : "15",
+            title : "PHP",
+            description : "MVP",
+            personalNumber : 789456,
+            imageLink : "https://...."
+        },
+        {
+        }
+   ]
+    
+```
+* **Notes:**&ensp;hasRole ("GUEST","USER","ADMIN")
+
+---
+#### SS, Update
+_Update By ID_  
+* **Method:**&ensp;`UPDATE`
+* **Required:**&ensp;`title=[String, NotNull, Length<10]`
+* **Optional:**&ensp;`id=[String]`
+* **Data Params:**
+```
     {
      "title": "Spring",
      "description": "Cassandra",
      "personalNumber": 1973,
      "imageLink": "https://..."
     }
-  ```
+```
 * **Success Response:**
-
   * **Code:** 200 <br />
      **Content:** 
-       ```javascript
-         [
-            {
-                id : 12,
-                title : "Java",
-                description : "OOP",
-                personalNumber : 200,
-                imageLink : "https://...."
-            }
-    ```
+```javascript
+    {
+        id : 12,
+        title : "Java",
+        description : "OOP",
+        personalNumber : 200,
+        imageLink : "https://...."
+    }
+```
     
-* **Error Response:**  
-   * **Code:** 400 BAD REQUEST <br />
-     **Content:** `{ title : "Max length is 10" }`
+* **Error Response:**
+    * **Code:** 404 NOT FOUND <br />  
+    * **Code:** 400 BAD REQUEST <br />
+      **Content:** `{ title : "Max length is 10" }`
      
-   * **Code:** 401 UNAUTHORIZED <br />
-     **Content:** `{ error : "Log in" }`
+    * **Code:** 401 UNAUTHORIZED <br />
+      **Content:** `{ error : "Log in" }`
 * **Sample Call:**
 
-  ```javascript
+```javascript
   $.ajax({
-     url: "/getAll",
+     url: "/update",
      contentType: "application/json",
-     type : "POST",
+     type : "UPDATE",
      data : JSON.stringify({ "id": 123, "title": "Spring", "description": "Cassandra", "personalNumber": 1973, "imageLink": "https://..."}),
      success : function() {
        console.log("GJ");
      }
   });
-  ```
-  ```http request
-  POST http://localhost:8081/create
+```
+```http request
+  POST http://localhost:8081/update
   Content-Type: application/json
   
   {
@@ -321,14 +485,14 @@ Note that **the project only includes a few Java SE 11**:
     "personalNumber": 1973,
     "imageLink": "https://..."
   }
-  ```
-  
+```
 * **Notes:**&ensp;hasRole ("USER","ADMIN")
 
-
-####  &ensp;SS, Get/Delete data by ID from BD. 
-* **URL:**&ensp;`/get/{id}`, `delete/{id}`)
-* **Method:**&ensp;`GET`,`DELETE`
+---
+#### SS, Delete
+_Delete By ID_  
+* **URL:**&ensp;`delete/{id}`
+* **Method:**&ensp;`DELETE`
 * **Required:**&ensp;None
 * **Success Response:**
 
@@ -351,7 +515,7 @@ Note that **the project only includes a few Java SE 11**:
 
   ```javascript
   $.ajax({
-     url: "/get/{id}",
+     url: "/delete/{id}",
      dataType: "json",
      type : "GET",
      success : function(r) {
@@ -360,14 +524,13 @@ Note that **the project only includes a few Java SE 11**:
   });
   ``` 
   ```http request
-  GET http://localhost:8081/get/{id}
+  GET http://localhost:8081/delete/{id}
   Accept: application/json
   ```
-* **Notes:**&ensp;for get hasRole ("GUEST","USER","ADMIN"), for delete hasRole ("USER","ADMIN")
+* **Notes:**&ensp; hasRole ("USER","ADMIN")
 
 ---
-  
-####  &ensp;SS, Delete All data every N(2) second. 
+_Delete All Data_
 * **URL:**&ensp;`/deleteAllStonks`)
 * **Method:**&ensp;`DELETE`
 * **Required:**&ensp;None
@@ -375,78 +538,25 @@ Note that **the project only includes a few Java SE 11**:
 
   * **Code:** 200 <br />
     **Content:** NONE
+* **Sample Call:**
+```javascript
+  $.ajax({
+     url: "/deleteAllStonks",
+     dataType: "json",
+     type : "DELETE",
+     success : function(r) {
+       console.log(r);
+     }
+  });
+``` 
+  
+```http request
+  DELETE http://localhost:8081/deleteAllStonks
+  Accept: application/json
+```
+* **Notes:**&ensp; hasRole ("USER","ADMIN")
+
 ---
-
-
-
-####  &ensp;SS, Get data as SSE from BD. 
-* **URL:**&ensp;`/stream/stonks`)
-* **Method:**&ensp;`GET`
-* **Required:**&ensp;None
-* **Success Response:**
-  * **Code:** 200 <br />
-    **Content:** 
-   ```javascript
-     [
-        {
-            id : 12,
-            title : "Java",
-            description : "OOP",
-            personalNumber : 200,
-            imageLink : "https://...."
-        },
-        {
-            id : 2,
-            title : "Java",
-            description : "Stream API",
-            personalNumber : 437,
-            imageLink : "https://...."        
-        }
-    ]
-  ```
----
-
-
-
-####  &ensp;SS, Get default data every 1 second. 
-* **URL:**&ensp;`/stream/stonks/default`)
-* **Method:**&ensp;`GET`
-* **Required:**&ensp;None
-* **Success Response:**
-
-  * **Code:** 200 <br />
-    **Content:** 
-   ```javascript
-        {
-            id : val,
-            title : "Python",
-            description : "default theme",
-            personalNumber : 0,
-            imageLink : "https://...."
-        }
-  ```
----
-
-####  &ensp;SS, Get All data every N(2) second. 
-* **URL:**&ensp;`/stream/stonks/delay`)
-* **Method:**&ensp;`GET`
-* **Required:**&ensp;None
-* **Success Response:**
-
-  * **Code:** 200 <br />
-    **Content:** 
-   ```javascript
-        {
-            id : val,
-            title : "Python",
-            description : "default theme",
-            personalNumber : 0,
-            imageLink : "https://...."
-        }
-  ```
----
-
-
 ## Server Side
 
 ### Change port, add User 

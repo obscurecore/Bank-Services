@@ -1,10 +1,15 @@
-package bank.service.finecardservice.client.dto;
+package bank.service.finecardservice.client.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * The type User data.
+ *
+ * @author Ruslan Potapov
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

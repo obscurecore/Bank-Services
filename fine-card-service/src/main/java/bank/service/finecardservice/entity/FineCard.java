@@ -1,13 +1,18 @@
 package bank.service.finecardservice.entity;
 
 
-import bank.service.finecardservice.client.dto.Card;
-import bank.service.finecardservice.client.dto.CardType;
+import bank.service.finecardservice.client.common.Card;
+import bank.service.finecardservice.client.common.CardType;
 import lombok.Builder;
 import lombok.Data;
 
 import java.math.BigDecimal;
 
+/**
+ * The type Fine card.
+ *
+ * @author Ruslan Potpaov
+ */
 @Data
 public class FineCard extends Card {
     private FineType fineType;

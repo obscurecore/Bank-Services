@@ -3,8 +3,8 @@ spring:
     name: fines-cards
 
 fines:
-  executeUrl: http://something.org/fines/execute
-  AIServerURL: http://localhost:9999
+  executeUrl: http://government.org/fines/execute
+  GovernmentServerURL: http://localhost:9999
 
 server:
   port: 8082

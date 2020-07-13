@@ -7,6 +7,11 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.util.Date;
 
+/**
+ * The type Fine dto.
+ *
+ * @author Ruslan Potapov
+ */
 @Data
 @NoArgsConstructor
 public class FineDTO {
