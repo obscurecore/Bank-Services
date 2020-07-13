@@ -10,12 +10,17 @@ import reactor.core.publisher.Mono;
 
 import java.util.List;
 
+/**
+ * The type Government client.
+ *
+ * @author Ruslan Potapov
+ */
 @Service
-public class GovermentClient {
+public class GovernmentClient {
 
     private final WebClient client;
 
-    public GovermentClient(@Value("${fines.AIServerURL}") String baseURL) {
+    public GovernmentClient(@Value("${fines.GovernmentServerURL}") String baseURL) {
         client = WebClient.create(baseURL);
     }
 

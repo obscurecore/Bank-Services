@@ -7,6 +7,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 
 /**
  * The type Fines cards application.
+ *
  * @author Ruslan Potapov
  */
 @SpringBootApplication

@@ -1,8 +1,8 @@
 package bank.service.finecardservice.controller;
 
 
+import bank.service.finecardservice.client.common.UserData;
 import bank.service.finecardservice.entity.FineCard;
-import bank.service.finecardservice.client.dto.UserData;
 import bank.service.finecardservice.service.FinesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -13,11 +13,15 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 
+/**
+ * The type Fines controller.
+ *
+ * @author Ruslan Potapov
+ */
 @RestController
 @RequiredArgsConstructor
 public class FinesController {
     private final FinesService finesService;
-
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/", produces = MediaType.APPLICATION_STREAM_JSON_VALUE)

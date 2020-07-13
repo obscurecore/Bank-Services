@@ -1,4 +1,4 @@
-package bank.service.finecardservice.client.dto;
+package bank.service.finecardservice.client.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -6,6 +6,11 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
+/**
+ * The type Card.
+ *
+ * @author Ruslan Potapov
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
