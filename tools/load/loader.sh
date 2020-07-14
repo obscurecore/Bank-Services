@@ -16,8 +16,8 @@ case "$COMMAND" in
   #L - True if FILE exists and is a symbolic link.
   #Curl command transfers data to or from a network server
   #o optionname(symbolic link)
-    curl -L 'https://dl.bintray.com/corecorp/rx-benchamrk/rx-benchmark-0.0.1.jar?expiry=1588238365650&id=D8PRKPNN%2BKi6Ya6SUNRrxGooLradub6RtXxEUUueDs%2FsMKw9C51m1M7G%2BsIw2YCBmCd24LG%2F%2FQ%2B098bmFxm06w%3D%3D&signature=LAilBmsekM84qmVBWAr6Rp%2FTb8%2FjZcc4ho1%2Fp8nkOjXoY8Wi2iCQnq7zVQnNNPn0owPb5%2Bp2gIeBsb5riwiqJg%3D%3D' -o ./rx-loader.jar
-    java -jar ./rx-loader.jar
+    curl -L 'https://github.com/obscurecore/Bank-Services/releases/download/v0.0.2/benchmark-0.0.2.jar' -o ./loader.jar
+    java -jar ./loader.jar
     ;;
   light_load)
   echo $2
