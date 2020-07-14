@@ -11,9 +11,9 @@ apply plugin: 'com.github.johnrengelman.shadow'
 apply plugin: 'java'
 
 
-version = '0.0.1'
+version = '0.0.2'
 group = 'bank.services'
-sourceCompatibility = 1.8
+sourceCompatibility = 8
 
 repositories {
     mavenLocal()
@@ -23,7 +23,7 @@ repositories {
 
 jar {
     manifest {
-        attributes 'Main-Class': 'bank.services.benchmark.Application'
+        attributes 'Main-Class': 'bank.service.benchmark.Application'
     }
 }
 
