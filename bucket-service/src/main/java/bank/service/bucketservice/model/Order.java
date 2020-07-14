@@ -1,4 +1,4 @@
-package bunk.service.bucketservice.model;
+package bank.service.bucketservice.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

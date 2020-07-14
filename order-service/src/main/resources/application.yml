@@ -8,10 +8,12 @@ spring:
     stream:
       bindings:
         output:
-          destination: inputSubcriber
+          destination: inputSubscriber
       default:
         contentType: application/json
+
   application:
-    name: order-service
+    name: publisher-service
+
 server:
-  port: 8055
+  port: 8020
