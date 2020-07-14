@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: config-server
+  profiles: git
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/obscurecore/Bank-Services/
+          search-paths:
+            - "ms-config-properties/{application}/{profile}"
+server:
+  port: 8888
+
