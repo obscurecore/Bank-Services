@@ -14,4 +14,4 @@ spring:
   application:
     name: order-service
 server:
-  address: 8033
+  port: 8055
