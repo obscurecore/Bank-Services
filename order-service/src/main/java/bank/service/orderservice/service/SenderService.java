@@ -22,7 +22,7 @@ class SenderService {
     @Scheduled(fixedRate = 5000)
     private void sendMessage() {
         Order editedOrder = ticketGenerator.createOrderForSend();
-        System.out.println(editedOrder);
+        System.err.println(editedOrder);
         source.output().send(MessageBuilder.withPayload(editedOrder).build());
     }
 

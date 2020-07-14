@@ -20,7 +20,7 @@ public class CheckOrderService {
                 order.getName(),
                 "checked");
 
-        System.out.println(checkedOrder);
+        System.err.println(checkedOrder);
 
         return checkedOrder;
     }
