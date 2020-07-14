@@ -15,6 +15,12 @@ Below you will find some information on how to perform common tasks.<br>
   - [Stonks Service](#stonks-service)
   - [User service](#user-service)
   - [Fine Card Service](#fine-card-service)
+  - [Benchamrk](#benchmark)
+  - [Bucket Service](#bucket-service)
+  - [Config Server](#config-server)
+  - [MS Config Properties](#ms-config-properties)
+  - [Order Service](#order-service)
+  - [Tools](#tools)
 - [Supported Language Features and Tools](#supported-language-features-and-tools)
 - [Integrating with an API Backend](#integrating-with-an-api-backend)
     - [Stonks service](#stonks-service)
@@ -27,9 +33,11 @@ Below you will find some information on how to perform common tasks.<br>
         - [Amazon Linux 2](#amazon-linux-2)
         - [Ubuntu](#ubuntu)
     - [Deployment](#deployment)    
-- [Build](#build)2489
+- [Build](#build)
     - [Mongo](#mongo)
     - [Maven](#maven)
+    - [RabbitMQ](#rabbitmq)
+    - [Create a Replica](#create-a-replica)
     - [Additional Instructions](#additional-instructions)
 - [Papers](#papers)
     - [Eureka Server](#eureka-server)
@@ -40,6 +48,8 @@ Below you will find some information on how to perform common tasks.<br>
     - [Feign Client](#feign-client)
     - [RSocket](#rsoket)
     - [WebClient](#webclient)
+    - [Ribbon](#ribbon)
+    
 
 
 ## Updating to New Releases
@@ -105,6 +115,18 @@ Bank-Services/
     ...
   fine-card-service/
     ...
+  benchmark/
+    ...
+  bucket-service/
+    ...
+  config-server/
+    ...
+  ms-config-service/
+    ...
+  order-service/
+    ...
+  tools/
+    ...
   .gitignore
 ```
 You can delete or rename files.
@@ -129,10 +151,20 @@ Interaction of servers with each other is the same as with Client and Server.
 If has problem it try to check all peer nodes or protect already available.
 ---
 ### `Zuul Service`
+Gateway, an intermediate level between users and services.
+
+**Filters:**
+* `Pre-filters`:
+ Performed before routing and can be used for things like authentication, routing and request processing, speed limits, DDoS protection.
+* `Endpoint-filters`:
+ filters-are responsible for processing the request based on performing pre-filters (health check responses, static error responses, 404).
+* `Post-filters`:
+They are executed after receiving a response from the source and can be used for metrics, to generate a response for the user, or to add any custom headers.
 
 ---
 ### `Security Service`
 ![er_security](https://i.ibb.co/Pt6jkqf/bd-security.png)
+
 
 ---
 ### `Stonks Service`
@@ -153,6 +185,37 @@ Also, user service use Ribbon - load balancer between replicas of other services
 
 ---
 ### `Fine Card Service`
+
+---
+### `Benchmark`
+
+---
+### `Bucket Service`
+
+---
+### `Config Server`
+![configserver](https://dzone.com/storage/temp/10546765-config.jpg)
+
+
+
+Contains links to the storage with General settings.
+To avoid writing the same code in different services, use a common settings store.
+
+When you start your service, it will register with Eureka and access the config-server,
+ which will direct it to the remote storage with the settings.
+ <br>Then you get the settings among all of them `as follows`:
+  It looks at {application} - the name of the service, and then at {profile} -  default profile is default.
+
+
+---
+### `MS Config Properties`
+
+---
+### `Order Service`
+
+---
+### `Tools`
+
 
 
 ## Supported Language Features and Tools
@@ -627,6 +690,14 @@ nano .bashrc
 * **Run:**<br>
 `./mvnw spring-boot:run`
 ---
+### RabbitMQ
+
+---
+### Create a Replica
+* `mvn install` &ensp; - &ensp; create jar file
+* `java -jar -Dserver.port=8086 stonks-service-0.0.1-SNAPSHOT.jar` &ensp; - &ensp; start the application on different port
+
+---
 ### Additional Instructions
  * `./tools/test_cli env` &ensp; - &ensp; (docker compose up) for start or restart all services, aggregates the output of each container. 
  * `./tools/test_cli env_start`&ensp; - &ensp; (docker compose start) start the previously stopped container.
@@ -784,3 +855,19 @@ Netflix provides Feign as an abstraction for REST based calls,
 For endpoint testing `WebFlux` environment comes with the `WebTestClient` class. 
 `WebTestClient` is a thin wrapper around WebClient. 
 You can use it to run queries and check responses.
+
+
+### Ribbon
+`Is a load balancer.`
+<br>
+Out of the box, it is integrated with the Service Discovery mechanism,
+ which provides a dynamic list of available instances for balancing between them.
+ 
+ **`Provides:`**
+ * Fault tolerance
+ * Load balancing
+ * Support for multiple protocols (HTTP, TCP, UDP) in asynchronous and reactive models
+ * Caching
+<br>
+
+By default, Spring Cloud Ribbon uses the `ZoneAwareLoadBalancer` strategy (Servers in the same zone as our service).
