@@ -14,4 +14,17 @@ eureka:
       defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
   instance:
     preferIpAddress: true
+stonks-service:
+  ribbon:
+    eureka:
+      enabled: true
+    ServerListRefreshInterval: 1000
+# Manual Setting
+#stonks-service:
+#  ribbon:
+#    listOfServers: localhost:8787, localhost: 8989
+#    eureka:
+#      enabled: true
+
+
 
