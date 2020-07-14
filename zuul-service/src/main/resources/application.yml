@@ -16,3 +16,17 @@ eureka:
       defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
   instance:
     preferIpAddress: true
+
+zuul:
+  routes:
+    auth-service:
+      strip-prefix: false
+      sensitive-headers: Cookie,Set-Cookie
+      path: /auth/**
+      service-id: security-service
+    gallery-service:
+      path: /stonks/**
+      service-id: stonks-service
+    user-service:
+      path: /users/**
+      service-id: user-service
