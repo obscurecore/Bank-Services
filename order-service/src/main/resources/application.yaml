@@ -4,6 +4,13 @@ spring:
     port: 5672
     username: guest
     password: guest
+  cloud:
+    stream:
+      bindings:
+        output:
+          destination: inputSubcriber
+      default:
+        contentType: application/json
   application:
     name: order-service
 server:
