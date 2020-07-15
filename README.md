@@ -37,7 +37,7 @@ Below you will find some information on how to perform common tasks.<br>
     - [Mongo](#mongo)
     - [Maven](#maven)
     - [RabbitMQ](#rabbitmq)
-    - [Create a Replica](#create-a-replica)
+    - [Replica](#replica)
     - [Additional Instructions](#additional-instructions)
 - [Papers](#papers)
     - [Eureka Server](#eureka-server)
@@ -49,6 +49,7 @@ Below you will find some information on how to perform common tasks.<br>
     - [RSocket](#rsoket)
     - [WebClient](#webclient)
     - [Ribbon](#ribbon)
+    - [Hystrix](#hystrix)
     
 
 
@@ -693,10 +694,29 @@ nano .bashrc
 ### RabbitMQ
 
 ---
-### Create a Replica
+### Replica
+**Service**
 * `mvn install` &ensp; - &ensp; create jar file
 * `java -jar -Dserver.port=8086 stonks-service-0.0.1-SNAPSHOT.jar` &ensp; - &ensp; start the application on different port
 
+**Server**
+* `/etc/hosts` add records 
+```
+127.0.0.1       my-eureka-server.com
+127.0.0.1       my-eureka-server-ru.com
+127.0.0.1       my-eureka-server-us.com
+127.0.0.1       my-eureka-server-fr.com
+```
+* Start
+```
+java -jar -Dspring.profiles.active=france eureka-server-0.0.1-SNAPSHOT.jar
+java -jar -Dspring.profiles.active=united-states eureka-server-0.0.1-SNAPSHOT.jar
+```
+* Browser
+```
+http://my-eureka-server-us.com:9001
+http://my-eureka-server-fr.com:9002
+```
 ---
 ### Additional Instructions
  * `./tools/test_cli env` &ensp; - &ensp; (docker compose up) for start or restart all services, aggregates the output of each container. 
@@ -871,3 +891,11 @@ Out of the box, it is integrated with the Service Discovery mechanism,
 <br>
 
 By default, Spring Cloud Ribbon uses the `ZoneAwareLoadBalancer` strategy (Servers in the same zone as our service).
+
+---
+### Hystrix
+`Circuit Breaker pattern.`
+<br>
+Library that helps control the interaction between services,
+ providing fault tolerance and stability to delays,
+  which increases the stability of the entire system as a whole  
