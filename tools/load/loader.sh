@@ -2,6 +2,8 @@
 
 cd `dirname $0`
 
+SCRIPTPATH=`dirname $0`
+cd $SCRIPTPATH
 
 threads=8
 light_connections=10
@@ -21,15 +23,16 @@ case "$COMMAND" in
     ;;
   light_load)
   echo $2
-    java -Dio.netty.leakDetection.level=disabled -jar ./rx-loader.jar --url=$2 \
+    java -Dio.netty.leakDetection.level=disabled -jar ./loader.jar --url=$2 \
      -t$threads -c$light_connections --duration=$light_duration -H userId:$3 -H longitude:$4 -H latitude:$5
     ;;
   heavy_load)
-    java -Dio.netty.leakDetection.level=disabled -jar ./rx-loader.jar --url=$2 \
+    java -Dio.netty.leakDetection.level=disabled -jar ./loader.jar --url=$2 \
      -t$threads -c$heavy_connections --duration=$heavy_duration -H userId:$3 -H longitude:$4 -H latitude:$5
     ;;
   load)
-    java -Dio.netty.leakDetection.level=disabled -jar ./rx-loader.jar --url=$2 \
+  echo $7, $2
+    java -Dio.netty.leakDetection.level=disabled -jar ./loader.jar --url=$2 \
      -t$threads -c$6 --duration=$7 -H userId:$3 -H longitude:$4 -H latitude:$5 ${@:8}
     ;;
   *)
