@@ -8,9 +8,9 @@ trap "handle_exit" EXIT
 fines_port=8082
 host=localhost
 hub_port=8080
-
+stonks_port=8081
 hub_url=$host:$hub_port/hub/cards
-
+stonks_url=$host:$stonks_port
 current_date=1500197400000
 user_id=20
 longitude=51.7908562
@@ -19,7 +19,7 @@ latitude=54.962341
 COMMAND="${1: }"
 
 remoteCall() {
-    curl -s $1?currentDate=$current_date -XGET -H 'userId:'$user_id -H "longitude: $longitude" -H "latitude: $latitude"
+    curl -S $1?currentDate=$current_date -XGET -H 'userId:'$user_id -H "longitude: $longitude" -H "latitude: $latitude"
     printf '=%.0s' {1..100} && echo $1
 }
 
@@ -32,6 +32,20 @@ case "$COMMAND" in
     _yellow hub call
     remoteCall $hub_url
     ;;
+
+  ################
+  # Stonks Service
+  ################
+  light_load_stonks)
+    _yellow stonks call
+    ./$D/load/loader.sh light_load $stonks_url/getAll
+    ;;
+
+  light_load_stonks_sse)
+      _yellow stonks call
+      ./$D/load/loader.sh light_load $stonks_url/stream/stonks
+      ;;
+
   load)
     _yellow hub call
     ./$D/load/loader.sh load $hub_url?currentDate=$current_date $user_id $longitude $latitude ${@:2}
@@ -45,7 +59,13 @@ case "$COMMAND" in
     ./$D/load/loader.sh heavy_load $hub_url?currentDate=$current_date $user_id $longitude $latitude
     ;;
   *)
-    echo "use command [simple_ind_call|simple_hub_call|load|light_load|heavy_load|env|env_stop|env_restart|env_down|mongo_fill|boot]"
+    echo "Use command :
+     * simple_ind_call - call all services
+     * Stonks Service:
+        * light_load_stonks - Get All Data With Async
+        * light_load_stonks_sse - Get All Data With SSE Support + Async
+     * heavy_load|env|env_stop|env_restart|env_down|mongo_fill|boot]"
+
     no_status
     _done
   ;;
