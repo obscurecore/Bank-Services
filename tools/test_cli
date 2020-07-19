@@ -14,14 +14,21 @@ fines_port=8082
 hub_port=8080
 stonks_port=8081
 zuul_port=8766
+user_port=8088
 
 #### gateway
 stonks_map=stonks
+user_map=users
 
-####
+
+#### path
 hub_url=$host:$hub_port/hub/cards
+user_url=$host:$zuul_port/$user_map
 stonks_url=$host:$zuul_port/$stonks_map
+
+# user_url=$host:$user_port/
 # stonks_url=$host:$stonks_port
+
 
 #### headers
 current_date=1500197400000
@@ -59,6 +66,19 @@ case "$COMMAND" in
       ./$D/load/loader.sh light_load $stonks_url/stream/stonks
       ;;
 
+  ################
+  # User Service
+  ################
+  light_load_user_Rest)
+      _yellow stonks call
+      ./$D/load/loader.sh light_load $user_url/data
+      ;;
+  light_load_user_Web)
+        _yellow stonks call
+        ./$D/load/loader.sh light_load $user_url/getDataByWebClient
+        ;;
+
+
   load)
     _yellow hub call
     ./$D/load/loader.sh load $hub_url?currentDate=$current_date $user_id $longitude $latitude ${@:2}
@@ -74,11 +94,13 @@ case "$COMMAND" in
   *)
     echo "Use command :
      * simple_ind_call - call all services
-     * Stonks Service:
+     # Stonks Service:
         * light_load_stonks - Get All Data With Async
         * light_load_stonks_sse - Get All Data With SSE Support + Async
      * heavy_load|env|env_stop|env_restart|env_down|mongo_fill|boot]"
-
+     # User Service:
+        * light_load_user_Rest - Get All Data by RestTemplate
+        * light_load_user_Web - Get All Data by webClient
     no_status
     _done
   ;;
