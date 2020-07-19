@@ -35,6 +35,7 @@ Below you will find some information on how to perform common tasks.<br>
     - [Deployment](#deployment)    
 - [Build](#build)
     - [Mongo](#mongo)
+    - [Jenkins](#jenkins)
     - [Maven](#maven)
     - [RabbitMQ](#rabbitmq)
     - [Replica](#replica)
@@ -683,6 +684,15 @@ nano .bashrc
  * `docker run mongo` &ensp; - &ensp; launch mongo. default port is 27017 or specify`docker run mongo --port 27017`.
  * `mongo` &ensp; - &ensp;  get into mongo shell.
  *  In case if you start stonks service `use stonksdb` - where stonksdb is the name of a database (see the application.yml) and `show collection` to see stonks object (see the Stonks class).
+---   
+### Jenkins
+**Ubuntu 18**
+* `sudo apt-get update` &ensp; - &ensp; update repository 
+* `sudo apt-get install openjdk-8-jre` &ensp; - &ensp; install java
+
+
+
+
 ---   
 ### Maven
 
