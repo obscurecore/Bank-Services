@@ -30,6 +30,6 @@ stonks-service:
     ServerListRefreshInterval: 1000
 
 hub:
-  finesURL: http://localhost:8082
+  finesURL: http://localhost:8077
   regularURL: http://localhost:8083
   adviceURL: http://localhost:8081

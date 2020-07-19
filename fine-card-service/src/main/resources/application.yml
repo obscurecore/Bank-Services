@@ -7,4 +7,4 @@ fines:
   GovernmentServerURL: http://localhost:9999
 
 server:
-  port: 8082
+  port: 8077
