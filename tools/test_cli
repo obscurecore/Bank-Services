@@ -5,12 +5,25 @@ D=$(dirname $BASH_SOURCE)
 source $D/.functions
 trap "handle_exit" EXIT
 
-fines_port=8082
+
+#### host
 host=localhost
+
+#### ports
+fines_port=8082
 hub_port=8080
 stonks_port=8081
+zuul_port=8766
+
+#### gateway
+stonks_map=stonks
+
+####
 hub_url=$host:$hub_port/hub/cards
-stonks_url=$host:$stonks_port
+stonks_url=$host:$zuul_port/$stonks_map
+# stonks_url=$host:$stonks_port
+
+#### headers
 current_date=1500197400000
 user_id=20
 longitude=51.7908562
