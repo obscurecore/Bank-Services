@@ -13,10 +13,10 @@ import reactor.core.publisher.Flux;
 @EnableEurekaClient
 @SpringBootApplication
 @EnableReactiveMongoRepositories
-public class StonksServiceApplication {
+public class Application {
 
     public static void main(String[] args) {
-        SpringApplication.run(StonksServiceApplication.class, args);
+        SpringApplication.run(Application.class, args);
     }
 
 
