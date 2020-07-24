@@ -17,7 +17,7 @@ pipeline {
                 echo " login"
                 withCredentials([usernamePassword(credentialsId: 'eureka-server', usernameVariable: 'ameeerka', passwordVariable: 'Frnbvtkm3')]) {
                     sh """
-                    docker login -u $USERNAME -p $PASSWORD
+                    docker login -u ameeerka -p Frnbvtkm3
                     """
                 }
             }
