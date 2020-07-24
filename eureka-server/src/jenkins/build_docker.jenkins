@@ -4,7 +4,7 @@ properties([disableConcurrentBuilds()])
 
 pipeline {
     agent {
-        label 'master'
+        label 'dev'
         }
     triggers { pollSCM('* * * * *') }
     options {
@@ -15,7 +15,7 @@ pipeline {
         stage("docker login") {
             steps {
                 echo " login"
-                withCredentials([usernamePassword(credentialsId: 'eureka-server', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                withCredentials([usernamePassword(credentialsId: 'eureka-server', usernameVariable: 'ameeerka', passwordVariable: 'Frnbvtkm3')]) {
                     sh """
                     docker login -u $USERNAME -p $PASSWORD
                     """
@@ -25,8 +25,8 @@ pipeline {
         stage("create docker image") {
             steps {
                 echo " start building image"
-                dir ('docker/toolbox') {
-                	sh 'docker build -t semaev/toolbox:latest . '
+                dir ('eureka-server/src/docker/Dockerfile') {
+                	sh 'docker build -t ameeerka/eureka-server:latest . '
                 }
             }
         }
@@ -34,7 +34,7 @@ pipeline {
             steps {
                 echo "start pushing image"
                 sh '''
-                docker push semaev/toolbox:latest
+                docker push ameeerka/eureka-server:latest
                 '''
             }
         }
