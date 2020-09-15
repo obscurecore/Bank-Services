@@ -8,7 +8,7 @@ spring:
     stream:
       bindings:
         output:
-          destination: inputSubscriber
+          destination: messages
       default:
         contentType: application/json
 
