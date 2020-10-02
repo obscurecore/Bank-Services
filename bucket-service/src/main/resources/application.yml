@@ -13,10 +13,22 @@ spring:
           input:
             consumer:
               autoBindDlq: true
+      ##Define a group so that only one Consumer can handle a Topic message,
+      ##Save the message if there is not one Consumer,
+      ##and set durableSubscription to true so that the message is saved and forwarded to the user when connected.
       bindings:
         input:
           destination: inputSubscriber
           group: inputSubscriberGroup
+        direct:
+          binder: rabbit
+          destination: p2p-topic
+          group: p2p-group
+
+          durableSubscription: true
+        broadcast:
+          binder: rabbit
+          destination: pubsub-topic
 
 server:
   port: 8030
