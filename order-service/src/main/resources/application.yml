@@ -11,6 +11,12 @@ spring:
           destination: messages
       default:
         contentType: application/json
+      direct:
+        binder: rabbit
+        destination: p2p-topic
+      broadcast:
+        binder: rabbit
+        destination: pubsub-topic
 
   application:
     name: publisher-service
