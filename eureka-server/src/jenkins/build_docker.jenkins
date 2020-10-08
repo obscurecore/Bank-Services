@@ -1,0 +1,42 @@
+#!groovy
+// Run docker build
+properties([disableConcurrentBuilds()])
+
+pipeline {
+    agent {
+        label 'master'
+        }
+    triggers { pollSCM('* * * * *') }
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
+        timestamps()
+    }
+    stages {
+        stage("docker login") {
+            steps {
+                echo " login"
+                withCredentials([usernamePassword(credentialsId: 'eureka-server', usernameVariable: 'ameeerka', passwordVariable: 'Frnbvtkm3')]) {
+                    sh """
+                    docker login -u ameeerka -p Frnbvtkm3
+                    """
+                }
+            }
+        }
+        stage("create docker image") {
+            steps {
+                echo " start building image"
+                dir ('eureka-server/src/docker/Dockerfile') {
+                	sh 'docker build -t ameeerka/eureka-server:latest . '
+                }
+            }
+        }
+        stage("docker push") {
+            steps {
+                echo "start pushing image"
+                sh '''
+                docker push ameeerka/eureka-server:latest
+                '''
+            }
+        }
+    }
+}
